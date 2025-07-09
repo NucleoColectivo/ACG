@@ -1,935 +1,811 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en" class="scroll-smooth">
 <head>
-  <!-- Oceanside Stucco Supply · Landing ES/EN -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title data-i18n="docTitle">Oceanside Stucco Supply | Quality Stucco & EIFS – Same-Day Delivery</title>
-  <meta name="description" data-i18n="metaDesc" content="Materiales de estuco y sistemas EIFS certificados. Entrega el mismo día en el área Tri‑State. Cotiza gratis ahora.">
-  <meta property="og:title" content="Oceanside Stucco Supply">
-  <meta property="og:description" content="Quality stucco & EIFS systems. Same‑day delivery across the Tri‑State area.">
-  <meta property="og:image" content="images/gif/Application.gif">
-  <meta property="og:type" content="website">
-  <meta property="og:locale" content="es_ES">
-  <meta property="og:locale:alternate" content="en_US">
-
-  <link rel="icon" type="image/png" href="images/logo-main.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <!-- Lucide icons -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <!-- Tailwind is used in the user's provided design -->
-  <script src="https://cdn.tailwindcss.com"></script>
-
-  <style>
-    /* ===== VARIABLES ===== */
-    :root{--primary:#1E88E5;--primary-light:#90CAF9;--dark:#0F1116;--gray:#F3F5F7;--radius:1rem}
-
-    /* ===== BASE ===== */
-    html{scroll-behavior:smooth}
-    body{font-family:'Montserrat',sans-serif;color:#151924;background:#fff; margin: 0;}
-    img{display:block;max-width:100%;border-radius:var(--radius)}
-    a{text-decoration:none;color:inherit}
-
-    /* ===== LAYOUT ===== */
-    section{padding:5rem 1.25rem;margin:auto;max-width:1280px}
-    .sec-title,.section-title{text-align:center;font-size:2.1rem;font-weight:700;margin-bottom:1.8rem}
-    .sec-desc{text-align:center;max-width:700px;margin:0 auto 3rem;color:#475569}
-
-    /* ===== VIDEO RESPONSIVE (fallback) ===== */
-    .aspect-video{position:relative;width:100%;padding-top:56.25%}
-    .aspect-video iframe{position:absolute;inset:0;width:100%;height:100%}
-
-    /* ===== HEADER / NAV ===== */
-    header{position:fixed;top:0;inset-inline:0;z-index:50;background:rgba(255,255,255,.92);backdrop-filter:blur(8px);box-shadow:0 2px 6px rgba(0,0,0,.05)}
-    nav ul{ list-style: none; padding: 0; margin: 0;}
-    nav a:hover{color:var(--primary)}
-    .btn,.btn-primary{background:var(--primary);color:#fff;padding:.7rem 1.4rem;border-radius:9999px;font-weight:600;box-shadow:0 8px 18px rgba(0,0,0,.15);transition:transform .25s, box-shadow .25s}
-    .btn:hover,.btn-primary:hover{transform:translateY(-3px); box-shadow:0 10px 22px rgba(0,0,0,.2)}
-    .btn-primary{background:#fff;color:var(--primary)}
-    
-    /* ===== HERO ===== */
-    .hero {
-        height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-        padding: 0;
-        width: 100%;
-        max-width: 100vw;
-    }
-    .hero-video-container {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%; 
-        height: 100%;
-        z-index: -2;
-        pointer-events: none;
-    }
-    .hero-video-container iframe {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 100vw;
-        height: 56.25vw; /* 16:9 Aspect Ratio */
-        min-height: 100vh;
-        min-width: 177.77vh; /* 16:9 Aspect Ratio */
-        transform: translate(-50%, -50%);
-    }
-    .hero::after{content:'';position:absolute;inset:0;background:rgba(0,0,0,.6); z-index: -1;}
-    .hero-content{position:relative;z-index:1;max-width:900px;padding:0 1rem;color:#fff;display:flex;flex-direction:column;align-items:center; justify-content: center;}
-    
-    /* ===== GRID CARDS ===== */
-    .cards{display:grid;gap:1.6rem;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
-    .card{background:#fff;padding:2.2rem 1.6rem;border-radius:var(--radius);box-shadow:0 8px 28px rgba(0,0,0,.06);
-          text-align:center;transition:transform .25s}
-    .card:hover{transform:translateY(-6px)}
-
-    /* ===== ABOUT ===== */
-    .about{display:grid;gap:2.5rem;grid-template-columns:450px 1fr;align-items:center}
-    @media(max-width:900px){.about{grid-template-columns:1fr}.about img{order:-1}}
-    .about img{box-shadow:0 6px 20px rgba(0,0,0,.08)}
-    .about .text h2{font-size:1.5rem;font-weight:600;margin-bottom:1rem}
-    .about .text p{margin-bottom:1rem;color:#475569}
-
-    /* ===== GALLERY ===== */
-    .gallery{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-    .gallery img{height:200px;object-fit:cover;cursor:pointer;transition:.3s; width: 100%;}
-    .gallery img:hover{transform:scale(1.05)}
-    .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.8);display:grid;place-items:center;opacity:0;pointer-events:none;
-              transition:.3s;z-index:1100}
-    .lightbox.active{opacity:1;pointer-events:all}.lightbox img{max-width:90%;max-height:90%; border-radius: 1rem;}
-
-    /* ===== BANNER CTA ===== */
-    .banner{background:linear-gradient(135deg,var(--primary-light) 0%,var(--primary) 100%);color:#fff;padding:4rem 1rem;
-            text-align:center;box-shadow:0 8px 28px rgba(0,0,0,.15);margin-top:4rem}
-    .banner h2{font-size:1.8rem;font-weight:700;margin-bottom:1.3rem}
-
-    /* ===== CONTACT ===== */
-    .contact-grid{display:grid;gap:2rem; grid-template-columns:1fr 1fr;}
-    @media (max-width:900px){ .contact-grid{ grid-template-columns:1fr; } }
-    .contact-card{background:#fff;padding:2rem;border-radius:var(--radius);box-shadow:0 6px 20px rgba(0,0,0,.05);}
-    .contact-grid input,.contact-grid textarea{width:100%;padding:.8rem 1rem;border:2px solid #E2E8F0;border-radius:.75rem; box-sizing: border-box;}
-    .contact-grid input:focus,.contact-grid textarea:focus{border-color:var(--primary);outline:none;
-                                                           box-shadow:0 0 0 2px rgba(30,136,229,.25)}
-
-    /* ===== FOOTER ===== */
-    footer{background:var(--dark);color:#c2c8d0;padding:3rem 1rem}
-    .footer-grid{display:grid;gap:2.5rem;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));max-width:1280px;margin:auto}
-    .footer-grid a:hover{color:#fff}
-    .footer-map{grid-column: 1 / -1; overflow:hidden; border-radius: var(--radius);}
-    @media (min-width: 1024px) { .footer-map {grid-column: span 2 / span 2;}}
-
-    /* ===== SOCIAL BUTTONS (footer) ===== */
-    .footer-social{display:flex;gap:.8rem;margin-top:.8rem}
-    .footer-social a{width:40px;height:40px;display:inline-flex;align-items:center;justify-content:center;border-radius:9999px;
-                     background:linear-gradient(135deg,var(--primary-light) 0%,var(--primary) 100%);
-                     color:#fff;box-shadow:0 4px 12px rgba(0,0,0,.12);transition:.2s}
-    .footer-social a:hover{transform:translateY(-3px);box-shadow:0 6px 18px rgba(0,0,0,.18)}
-    .footer-social svg{width:22px;height:22px}
-
-    /* ===== FLOATING BTNS ===== */
-    .floating-btn{position:fixed;border:none;border-radius:9999px;font-weight:600;box-shadow:0 8px 18px rgba(0,0,0,.25);
-                      cursor:pointer;z-index:80; display:flex; align-items:center; justify-content:center;}
-    .lang-btn{bottom:22px;right:22px;background:var(--primary);color:#fff;padding:.7rem 1.1rem}
-    .wa-btn{bottom:90px;right:22px;background:#25D366;width:52px; height: 52px; padding: 0;}
-    #radioBtnIcon {
-        position: fixed;
-        bottom: 22px;
-        left: 22px;
-        width: 60px;
-        height: 60px;
-        cursor: pointer;
-        z-index: 80;
-        border-radius: 0;
-        animation: blue-glow 2s infinite alternate;
-        transition: transform 0.2s ease;
-    }
-    #radioBtnIcon:hover {
-        transform: scale(1.1);
-    }
-    .top-btn{position:fixed;bottom:158px;right:22px;background:var(--primary);width:52px; height: 52px;
-             display:none; align-items:center; justify-content:center; border-radius: 9999px; cursor: pointer; border: none;}
-
-    /* ===== MODAL COTIZADOR & LEGAL ===== */
-    .modal-cotizador, .legal-modal { position: fixed; inset: 0; z-index: 1100; background: rgba(0,0,0,0.6); display: none; align-items: center; justify-content: center; padding: 1rem; }
-    .modal-cotizador.active, .legal-modal.active { display: flex; }
-    .cotizador-content, .legal-content { background: white; max-width: 800px; width: 100%; border-radius: 1rem; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.2); max-height: 90vh; display: flex; flex-direction: column; }
-    .cotizador-header-footer, .legal-header, .legal-footer { padding: 1rem 1.5rem; flex-shrink: 0; }
-    .cotizador-body, .legal-body { overflow-y: auto; padding: 0 1.5rem; }
-    .cotizador-content .es, .cotizador-content .en, .legal-modal .es, .legal-modal .en { display: none; }
-    .cotizador-content.es .es, .cotizador-content.en .en, .legal-modal.es .es, .legal-modal.en .en { display: block; }
-    #stucco-items .es, #stucco-items .en { display: none; }
-    .cotizador-content.es #stucco-items .es { display: inline; }
-    .cotizador-content.en #stucco-items .en { display: inline; }
-    .legal-body h3 { font-size: 1.1rem; font-weight: 600; margin-top: 1.25rem; margin-bottom: 0.5rem; }
-    .legal-body p { margin-bottom: 1rem; color: #475569; line-height: 1.6; }
-    .legal-body ul { list-style-position: inside; list-style-type: disc; margin-bottom: 1rem; color: #475569; }
-
-
-    /* ===== RADIO PLAYER ===== */
-    .radio-modal { position: fixed; bottom: 85px; left: 22px; width: 300px; display: flex; flex-direction: column; background: #333; color: #fff; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.5); z-index: 1000; transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; transform: translateY(20px) scale(0.95); opacity: 0; pointer-events: none; overflow: hidden; }
-    .radio-modal.visible { transform: translateY(0) scale(1); opacity: 1; pointer-events: auto;}
-    .radio-header { background: var(--primary); padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; }
-    .radio-header .title { font-weight: bold; font-size: 0.9rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex-grow: 1; margin-right: 10px;}
-    .radio-header-buttons { display: flex; gap: 5px; }
-    .radio-header-buttons button { background: none; border: none; color: #fff; opacity: 0.8; cursor: pointer; transition: opacity 0.2s; padding: 5px;}
-    .radio-header-buttons button:hover { opacity: 1; }
-    .radio-body { transition: max-height 0.3s ease-in-out, padding 0.3s ease-in-out; max-height: 200px; }
-    .radio-controls { background: #222; padding: 15px; display: flex; justify-content: space-around; align-items: center; }
-    .radio-controls button { background: none; border: 2px solid #fff; border-radius: 50%; width: 44px; height: 44px; color: #fff; display: flex; align-items:center; justify-content:center; cursor: pointer; transition: all .2s; }
-    .radio-controls button:hover { border-color: var(--primary-light); color: var(--primary-light); transform: scale(1.1); }
-    .radio-controls button.active { border-color: #D81B60; color: #D81B60; }
-    .radio-volume { background: #222; padding: 0 15px 15px; }
-    .radio-volume input[type=range] { width: 100%; height: 5px; background: #555; border-radius: 5px; outline: none; cursor: pointer; -webkit-appearance: none; }
-    .radio-volume input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 16px; height: 16px; background: #D81B60; border-radius: 50%; cursor: pointer; border: 2px solid #222; }
-    .radio-modal.minimized .radio-body { max-height: 0; padding-top: 0; padding-bottom: 0; overflow: hidden; }
-
-    @keyframes blue-glow {
-      from {
-        filter: drop-shadow(0 0 5px rgba(30, 136, 229, 0.6)) drop-shadow(0 0 10px rgba(30, 136, 229, 0.4));
-      }
-      to {
-        filter: drop-shadow(0 0 10px rgba(30, 136, 229, 1)) drop-shadow(0 0 20px rgba(30, 136, 229, 0.8));
-      }
-    }
-
-  </style>
-</head>
-<body>
-<!-- ========== NAV ========= -->
-<header class="fixed top-0 inset-x-0 z-50 bg-white/90 backdrop-blur shadow">
-  <nav class="max-w-7xl mx-auto flex items-center justify-between gap-6 px-4 py-3 font-[Montserrat]">
-    <!-- Brand -->
-    <a href="#home" class="font-bold text-lg whitespace-nowrap" data-i18n="brand">
-      Oceanside Stucco Supply
-    </a>
-
-    <!-- Desktop Menu -->
-    <div class="hidden lg:flex items-center gap-6">
-      <ul class="flex gap-6 font-medium">
-        <li><a href="#products" data-i18n="navProducts" class="hover:text-[var(--primary)]"></a></li>
-        <li><a href="#services" data-i18n="navServices" class="hover:text-[var(--primary)]"></a></li>
-        <li><a href="#gallery" data-i18n="navGallery" class="hover:text-[var(--primary)]"></a></li>
-        <li><a href="#about-extra" data-i18n="navAbout" class="hover:text-[var(--primary)]"></a></li>
-        <li><a href="#faq" data-i18n="navFAQ" class="hover:text-[var(--primary)]"></a></li>
-        <li><a href="#contact" data-i18n="navContact" class="hover:text-[var(--primary)]"></a></li>
-      </ul>
-      <a href="#contact" class="btn" data-i18n="ctaQuote"></a>
-    </div>
-
-    <!-- Mobile Menu Button -->
-    <button id="mobile-menu-button" class="lg:hidden text-gray-700">
-      <i data-lucide="menu" class="h-6 w-6"></i>
-    </button>
-  </nav>
-
-  <!-- Mobile Menu Panel -->
-  <div id="mobile-menu" class="hidden lg:hidden bg-white/95 backdrop-blur-sm">
-    <ul class="flex flex-col items-center gap-6 py-8">
-      <li><a href="#products" data-i18n="navProducts" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#services" data-i18n="navServices" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#gallery" data-i18n="navGallery" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#about-extra" data-i18n="navAbout" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#faq" data-i18n="navFAQ" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#contact" data-i18n="navContact" class="hover:text-[var(--primary)] mobile-link"></a></li>
-      <li><a href="#contact" class="btn mt-4 mobile-link" data-i18n="ctaQuote"></a></li>
-    </ul>
-  </div>
-</header>
-
-<!-- ========== HERO ========== -->
-<section class="hero" id="home" role="banner">
-  <div class="hero-video-container">
-    <iframe 
-      src="https://www.youtube.com/embed/pZPI3jQ_8-U?autoplay=1&loop=1&mute=1&controls=0&playlist=pZPI3jQ_8-U&vq=hd1080" 
-      title="YouTube video player" 
-      frameborder="0" 
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-      allowfullscreen>
-    </iframe>
-  </div>
-  <div class="hero-content">
-    <img src="images/logo-transparent.png" class="w-48 sm:w-80 mb-4 drop-shadow-lg" alt="Oceanside Stucco logo">
-    <h1 class="text-3xl sm:text-5xl font-extrabold mb-4" data-i18n="heroH1" style="font-size: clamp(2rem, 5vw, 3.5rem); text-shadow: 2px 2px 4px rgba(0,0,0,0.7);"></h1>
-    <p class="mb-6 text-lg sm:text-xl" data-i18n="heroP" style="text-shadow: 1px 1px 2px rgba(0,0,0,0.7);"></p>
-
-    <div class="flex flex-col gap-2 font-medium my-4 text-lg">
-      <span class="flex items-center justify-center gap-2"><i data-lucide="phone" class="inline" width="23"></i> <strong>929-504-0773</strong></span>
-      <span class="flex items-center justify-center gap-2"><i data-lucide="check-circle" class="inline" width="32"></i> <span data-i18n="heroBullet"></span></span>
-    </div>
-
-    <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mt-4 flex-wrap">
-      <a href="#contact" class="btn" data-i18n="ctaHero"></a>
-      <a href="https://wa.me/19295040773" target="_blank" class="btn" style="background-color: #25D366;" data-i18n="ctaWa"></a>
-      <a href="#video" class="btn-primary" data-i18n="ctaVideo"></a>
-    </div>
-  </div>
-</section>
-  
-<!-- ========== PRODUCTS ========== -->
-<section id="products">
-  <h2 class="sec-title" data-i18n="productsTitle"></h2>
-  <p class="sec-desc" data-i18n="productsDesc"></p>
-
-  <div class="cards">
-    <div class="card">
-      <img src="images/Sistema de Estuco y EIFS.png" alt="Stucco & EIFS Systems" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="prod1"></h3>
-    </div>
-    <div class="card">
-      <img src="images/Rodillo de pintura sobre fondo azul.png" alt="Base & Finish Coats" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="prod2"></h3>
-    </div>
-    <div class="card">
-      <img src="images/Icono de adhesivo.png" alt="Mesh & Adhesives" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="prod3"></h3>
-    </div>
-    <div class="card">
-      <img src="images/Pila de aislamiento en gradiente azul.png" alt="Insulation Boards" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="prod4"></h3>
-    </div>
-    <div class="card">
-      <img src="images/Iconos de Herramientas.png" alt="Tools & Accessories" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="prod5"></h3>
-    </div>
-  </div>
-</section>
-  
-<!-- ========== VIDEO INTRO ========== -->
-<section id="video" class="py-20 bg-neutral-50">
-  <div class="mx-auto max-w-5xl rounded-2xl overflow-hidden shadow-xl aspect-video">
-    <iframe src="https://www.youtube.com/embed/pZPI3jQ_8-U?rel=0&modestbranding=1" title="Oceanside Stucco Supply – Presentación" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen>
-    </iframe>
-  </div>
-</section>
-  
-<!-- ========== SERVICES (original) ========== -->
-<section id="services" class="bg-[var(--gray)]">
-  <h2 class="sec-title" data-i18n="servicesTitle"></h2>
-  <p class="sec-desc" data-i18n="servicesDesc"></p>
-
-  <div class="cards">
-    <div class="card bg-white">
-      <img src="images/Camion.png" alt="Fast Deliveries" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="srv1"></h3>
-      <p class="text-sm mt-2" data-i18n="srv1d"></p>
-    </div>
-    <div class="card bg-white">
-      <img src="images/Soporte.png" alt="Technical Support" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="srv2"></h3>
-      <p class="text-sm mt-2" data-i18n="srv2d"></p>
-    </div>
-    <div class="card bg-white">
-      <img src="images/Abierto.png" alt="Open to Everyone" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="srv3"></h3>
-      <p class="text-sm mt-2" data-i18n="srv3d"></p>
-    </div>
-    <div class="card bg-white">
-      <img src="images/montacargas.png" alt="Wholesale & Retail" class="mx-auto w-24 h-24 mb-4" loading="lazy">
-      <h3 class="font-semibold" data-i18n="srv4"></h3>
-      <p class="text-sm mt-2" data-i18n="srv4d"></p>
-    </div>
-  </div>
-</section>
-
-<!-- ========== ABOUT 2 (detallado) ========== -->
-<section class="section" id="about-extra">
-  <div class="about">
-    <img src="images/warehouse.png" alt="Warehouse" loading="lazy">
-    <div class="text">
-      <h2 data-i18n="about2Subtitle"></h2>
-      <p data-i18n="about2P1"></p>
-      <p data-i18n="about2P2"></p>
-      <a href="#contact" class="btn-primary" data-i18n="about2Btn" style="display: inline-block; margin-top: 1rem;"></a>
-    </div>
-  </div>
-</section>
-
-<!-- ========== CTA BANNER ========== -->
-<section class="banner">
-  <div class="banner-content">
-      <h2 data-i18n="ctaBannerH"></h2>
-      <a href="#contact" class="btn-primary" data-i18n="ctaBannerBtn"></a>
-  </div>
-</section>
-
-<!-- ========== COTIZADOR BUTTON ========== -->
-<section class="text-center" style="padding: 3rem 1rem;">
-    <button id="openCotizadorBtn" class="btn" style="padding: 1rem 2rem; font-size: 1.2rem;">
-        <i data-lucide="calculator" class="inline"></i> <span data-i18n="openQuoteTool"></span>
-    </button>
-</section>
-
-<!-- ========== GALLERY ========== -->
-<section id="gallery">
-  <h2 class="sec-title" data-i18n="galleryTitle"></h2>
-  <p class="sec-desc" data-i18n="galleryDesc"></p>
-  <div class="gallery">
-    <img src="images/project-1.jpg" alt="" data-i18n-alt="alt1" loading="lazy">
-    <img src="images/project-2.jpg" alt="" data-i18n-alt="alt2" loading="lazy">
-    <img src="images/project-3.jpg" alt="" data-i18n-alt="alt3" loading="lazy">
-    <img src="images/project-7.jpg" alt="" data-i18n-alt="alt4" loading="lazy">
-    <img src="images/project-5.jpg" alt="" data-i18n-alt="alt3" loading="lazy">
-    <img src="images/project-6.jpg" alt="" data-i18n-alt="alt4" loading="lazy">
-  </div>
-</section>
-
-<!-- ========== FAQ ========== -->
-<section id="faq" class="bg-[var(--gray)]">
-  <h2 class="sec-title" data-i18n="faqTitle"></h2>
-  <div class="max-w-3xl mx-auto">
-    <details class="bg-white p-5 rounded-xl mb-4 shadow-sm cursor-pointer">
-      <summary class="font-semibold" data-i18n="faqQ1"></summary>
-      <p class="mt-2 text-slate-600" data-i18n="faqA1"></p>
-    </details>
-    <details class="bg-white p-5 rounded-xl mb-4 shadow-sm cursor-pointer">
-      <summary class="font-semibold" data-i18n="faqQ2"></summary>
-      <p class="mt-2 text-slate-600" data-i18n="faqA2"></p>
-    </details>
-    <details class="bg-white p-5 rounded-xl mb-4 shadow-sm cursor-pointer">
-      <summary class="font-semibold" data-i18n="faqQ3"></summary>
-      <p class="mt-2 text-slate-600" data-i18n="faqA3"></p>
-    </details>
-    <details class="bg-white p-5 rounded-xl shadow-sm cursor-pointer">
-      <summary class="font-semibold" data-i18n="faqQ4"></summary>
-      <p class="mt-2 text-slate-600" data-i18n="faqA4"></p>
-    </details>
-  </div>
-</section>
-
-<!-- ========== CONTACT ========== -->
-<section id="contact" class="py-14">
-    <div class="max-w-7xl mx-auto grid gap-12 md:grid-cols-2 items-start">
-      <div>
-        <h2 class="sec-title text-left mb-6 md:mb-10" data-i18n="contactTitle"></h2>
-        <div class="contact-card">
-          <h3 class="font-semibold text-xl mb-4" data-i18n="brandFull"></h3>
-          <ul class="space-y-3 text-slate-700">
-            <li class="flex items-center gap-2"><i data-lucide="phone" width="18" class="text-primary"></i> 929-504-0773</li>
-            <li class="flex items-center gap-2"><i data-lucide="mail"  width="18" class="text-primary"></i> info@oceansidestucco.com</li>
-            <li class="flex items-center gap-2"><i data-lucide="map-pin" width="18" class="text-primary"></i> White Plains, NY</li>
-            <li class="flex items-center gap-2"><i data-lucide="clock" width="18" class="text-primary"></i> <span data-i18n="hours"></span></li>
-          </ul>
-        </div>
-      </div>
-      <form id="formContact" class="contact-card grid gap-4 mt-0 md:mt-24">
-        <input type="text" placeholder="Nombre completo" data-i18n-placeholder="phName" required>
-        <input type="email" placeholder="Correo electrónico" data-i18n-placeholder="phEmail" required>
-        <textarea rows="4" placeholder="Cuéntanos sobre tu proyecto" data-i18n-placeholder="phMsg"></textarea>
-        <button class="btn w-full" type="submit" data-i18n="contactBtn"></button>
-      </form>
-    </div>
-  </section>
-
-<!-- ========== FOOTER ========== -->
-<footer>
-  <div class="footer-grid">
-    <div class="footer-map">
-        <div class="aspect-video">
-          <iframe
-            class="w-full h-full" loading="lazy" allowfullscreen title="Mapa Oceanside Stucco Supply" referrerpolicy="no-referrer-when-downgrade"
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d19120.301374523317!2d-73.78465905060447!3d41.0028214736531!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c293cfd943486b%3A0xc47e30d1e57c63b4!2sWhite%20Plains%2C%20NY%2C%20USA!5e0!3m2!1sen!2sco!4v1719277087640!5m2!1sen!2sco">
-          </iframe>
-        </div>
-      </div>
-    <div>
-      <h4 class="text-lg font-semibold text-white mb-2" data-i18n="brandFull"></h4>
-      <p class="text-slate-400 max-w-xs" data-i18n="footerTag"></p>
-      <p class="mt-3 text-slate-500 flex items-center gap-1"><i data-lucide="map-pin" width="16"></i> White Plains, NY</p>
-    </div>
-    <div>
-      <h5 class="font-semibold text-white mb-2" data-i18n="footerContact"></h5>
-      <p class="flex items-center gap-1 text-slate-400"><i data-lucide="phone" width="16"></i> 929-504-0773</p>
-      <p class="flex items-center gap-1 text-slate-400"><i data-lucide="mail" width="16"></i> info@oceansidestucco.com</p>
-      <!-- Social -->
-      <div class="footer-social">
-        <a href="https://www.facebook.com/permalink.php?story_fbid=pfbid0UX2wJq1cRBxDccZTD1VdUWT6Hb2j6wyC9cLqgTRoeoZELzK8dA7YoFz7aCFCJAabl&id=61573814677661" target="_blank" aria-label="Facebook">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.675 0H1.325C.595 0 0 .593 0 1.326v21.348C0 23.407.595 24 1.325 24h11.49v-9.294H9.692V11.08h3.123V8.41c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.917.001c-1.504 0-1.796.715-1.796 1.762v2.31h3.59l-.467 3.626h-3.123V24h6.116C23.405 24 24 23.407 24 22.674V1.326C24 .593 23.405 0 22.675 0z"/></svg>
-        </a>
-        <a href="https://www.instagram.com/oceansidestuccosupply/" target="_blank" aria-label="Instagram">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.5 2A5.5 5.5 0 0 0 2 7.5v9A5.5 5.5 0 0 0 7.5 22h9a5.5 5.5 0 0 0 5.5-5.5v-9A5.5 5.5 0 0 0 16.5 2h-9zm0 2h9A3.5 3.5 0 0 1 20 7.5v9A3.5 3.5 0 0 1 16.5 20h-9A3.5 3.5 0 0 1 4 16.5v-9A3.5 3.5 0 0 1 7.5 4zm9.8 1.7a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 2a3 3 0 1 1 0 6 3 3 0 0 1 0-6z"/></svg>
-        </a>
-        <a href="https://www.tiktok.com/@oceansidestuccosupply" target="_blank" aria-label="TikTok">
-          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M21 8.305a6.153 6.153 0 0 1-4.286-1.734V14.4a6.665 6.665 0 1 1-7.014-6.638v3.35a3.322 3.322 0 1 0 3.335 3.288V0h3.332a2.88 2.88 0 0 0 2.863 2.537h1.77v3.35z"/></svg>
-        </a>
-      </div>
-    </div>
-    
-    <div>
-      <h5 class="font-semibold text-white mb-2" data-i18n="footerLegal"></h5>
-      <a href="javascript:void(0)" id="openPrivacy" class="block text-slate-400 mb-1 hover:text-white" data-i18n="privacy"></a>
-      <a href="javascript:void(0)" id="openTerms" class="block text-slate-400 hover:text-white" data-i18n="terms"></a>
-    </div>
-  </div>
-  <hr class="border-slate-700 my-6">
-  <p class="text-center text-slate-500 text-sm" data-i18n="copyright"></p>
-</footer>
-
-<!-- ========== LIGHTBOX ========== -->
-<div class="lightbox" id="lightbox"><img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAAD/ACwAAAAAAQABAAACADs=" alt="Project image"></div>
-
-<!-- ========== LEGAL MODALS ========== -->
-<div id="privacyModal" class="legal-modal">
-  <div class="legal-content">
-    <div class="legal-header flex justify-between items-center border-b">
-      <h2 class="text-xl font-bold text-[var(--primary)]" data-i18n="privacyTitle"></h2>
-      <button class="close-legal-modal text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
-    </div>
-    <div class="legal-body py-4" data-i18n-content="privacyContent"></div>
-  </div>
-</div>
-
-<div id="termsModal" class="legal-modal">
-  <div class="legal-content">
-    <div class="legal-header flex justify-between items-center border-b">
-      <h2 class="text-xl font-bold text-[var(--primary)]" data-i18n="termsTitle"></h2>
-      <button class="close-legal-modal text-gray-500 hover:text-red-500"><i data-lucide="x"></i></button>
-    </div>
-    <div class="legal-body py-4" data-i18n-content="termsContent"></div>
-  </div>
-</div>
-
-
-<!-- ========== MODAL COTIZADOR ========== -->
-<div id="cotizadorModal" class="modal-cotizador">
-  <div id="cotizadorContent" class="cotizador-content">
-    <div class="cotizador-header-footer">
-        <button id="closeCotizadorBtn" class="absolute top-4 right-4 text-gray-500 hover:text-red-500" aria-label="Cerrar">
-          <i data-lucide="x"></i>
-        </button>
-        <div class="text-center">
-          <h2 class="text-xl sm:text-2xl font-bold text-[var(--primary)]"><span class="es">Cotizador Interactivo</span><span class="en">Quote Tool</span></h2>
-          <button id="toggleQuoteLang" class="mt-2 text-sm font-semibold text-[var(--primary)] underline">ES / EN</button>
-        </div>
-    </div>
-
-    <div id="stucco-items" class="cotizador-body space-y-4"></div>
-
-    <div class="cotizador-header-footer mt-auto border-t pt-4">
-      <div class="flex justify-between items-center mb-4">
-        <span class="text-lg font-medium">Total:</span>
-        <span class="text-xl font-bold text-[var(--primary)]">USD <span id="total-usd">0.00</span></span>
-      </div>
-      <div class="flex flex-col sm:flex-row gap-3">
-        <button id="sendQuoteWhatsApp" class="btn w-full flex items-center justify-center gap-2" style="background: var(--primary); color: white;">
-          <i data-lucide="send" width="18"></i> <span class="es">Pedir por WhatsApp</span><span class="en">Order via WhatsApp</span>
-        </button>
-        <button onclick="window.print()" class="btn w-full flex items-center justify-center gap-2" style="background: white; color: var(--primary); border: 1px solid var(--primary)">
-           <i data-lucide="printer" width="18"></i> <span class="es">Imprimir</span><span class="en">Print</span>
-        </button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ========== FLOATING BTNS & RADIO PLAYER ========== -->
-<button class="top-btn floating-btn" id="topBtn" title="Go to top"><i data-lucide="arrow-up" color="#fff" width="24"></i></button>
-<a href="https://wa.me/19295040773" class="wa-btn floating-btn" aria-label="WhatsApp" target="_blank" rel="noopener" title="Chat on WhatsApp">
-    <img src="images/whatsapp.png" alt="WhatsApp" width="28" height="28">
-</a>
-<img src="images/radio.png" id="radioBtnIcon" alt="Abrir Radio" title="Abrir Radio">
-<button class="lang-btn floating-btn" id="langBtn" title="Change language">EN</button>
-
-<div id="radioModal" class="radio-modal">
-    <div class="radio-header">
-      <span id="stationName" class="title">Cargando…</span>
-      <div class="radio-header-buttons">
-          <button id="radioMinimize" title="Minimizar"><i data-lucide="chevrons-down-up" width="18"></i></button>
-          <button id="radioClose" title="Cerrar"><i data-lucide="x" width="18"></i></button>
-      </div>
-    </div>
-    <div class="radio-body">
-        <div class="radio-controls">
-          <button id="radioPrev" title="Anterior"><i data-lucide="skip-back" width="20"></i></button>
-          <button id="radioPlay" title="Play/Pause" class="active"><i data-lucide="pause" width="20"></i></button>
-          <button id="radioNext" title="Siguiente"><i data-lucide="skip-forward" width="20"></i></button>
-          <button id="radioMute" title="Silenciar"><i data-lucide="volume-2" width="20"></i></button>
-        </div>
-        <div class="radio-volume">
-          <input type="range" id="radioVolume" min="0" max="1" step="0.01" value="0.6">
-        </div>
-    </div>
-</div>
-<audio id="radioAudio" preload="none"></audio>
-
-
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-
-    /* ===== i18n DICTIONARY ===== */
-    let lang = 'es';
-    const dict = {
-        es: {
-            docTitle: 'Oceanside Stucco Supply | Materiales de Estuco & EIFS – Entrega el Mismo Día',
-            metaDesc: 'Materiales de estuco y sistemas EIFS certificados. Entrega el mismo día en el área Tri-State. Cotiza gratis ahora.',
-            brand: 'Oceanside Stucco',
-            brandFull: 'Oceanside Stucco Supply',
-            navProducts: 'Productos', navServices: 'Servicios', navGallery: 'Galería', navAbout: 'Sobre Nosotros',
-            navFAQ: 'FAQ', navContact: 'Contacto', ctaQuote: 'Cotiza Ya',
-            heroH1: 'Materiales de Calidad. Atención Rápida. Entregas en el Mismo Día.',
-            heroBullet: 'Entrega el mismo día disponible',
-            heroP: 'En Oceanside Stucco Supply ofrecemos suministros de estuco y sistemas EIFS confiables para contratistas, remodeladores y propietarios en el área Tri-State.',
-            ctaHero: 'Solicita tu Cotización', ctaWa: 'WhatsApp', ctaVideo: 'Ver Video',
-            productsTitle: 'Productos Especializados',
-            productsDesc: 'Ofrecemos productos duraderos y certificados para proyectos de construcción, remodelación y diseño exterior.',
-            prod1: 'Stucco y Sistemas EIFS', prod2: 'Revestimientos Base y Acabados', prod3: 'Mallas y Adhesivos',
-            prod4: 'Tableros de Aislamiento', prod5: 'Herramientas y Accesorios',
-            servicesTitle: 'Servicios Profesionales',
-            servicesDesc: 'Entregas rápidas, soporte técnico personalizado y ventas al por mayor o unidad.',
-            srv1: 'Entregas Rápidas', srv1d: 'Cobertura White Plains y alrededores.',
-            srv2: 'Soporte Técnico', srv2d: 'Asesoría personalizada.',
-            srv3: 'Abierto a Todos', srv3d: 'Público y contratistas.',
-            srv4: 'Mayorista y Retail', srv4d: 'Ventas por volumen o unidad.',
-            about2Title: 'Sobre nosotros',
-            about2Subtitle: '15 años inspirados en el acabado perfecto',
-            about2P1: 'En <strong>Stucco Supply</strong> hemos acompañado a constructores, arquitectos y diseñadores en más de <em>2,000</em> proyectos residenciales y comerciales. Somos especialistas en recubrimientos y sistemas EIFS: entendemos cada fase del proceso y garantizamos inventario Just-in-Time.',
-            about2P2: 'Trabajamos para que tu obra avance sin contratiempos: mezclas personalizadas, matching de color, soporte técnico y logística de entrega <abbr title="Delivery Just-in-Time">JIT</abbr> a pie de obra.',
-            about2Btn: 'Hablemos',
-            ctaBannerH: '¿Listo para elevar la calidad de tu proyecto?',
-            ctaBannerBtn: 'Solicitar cotización',
-            openQuoteTool: 'Abrir Cotizador Interactivo',
-            galleryTitle: 'Proyectos Recientes', galleryDesc: 'Calidad y precisión en cada detalle.',
-            alt1: 'Fachada residencial', alt2: 'Acabado comercial', alt3: 'Detalle EIFS', alt4: 'Proceso de aplicación',
-            faqTitle: 'Preguntas Frecuentes',
-            faqQ1: '¿Ofrecen garantía?', faqA1: 'Sí, todos nuestros materiales cuentan con garantía de fábrica.',
-            faqQ2: '¿Puedo hacer pedidos grandes?', faqA2: 'Claro, ofrecemos descuentos por volumen y logística dedicada.',
-            faqQ3: '¿Tienen sistema EIFS completo?', faqA3: 'Sí, proveemos kits completos con basecoat, malla, adhesivo y acabados.',
-            faqQ4: '¿Entregan el mismo día?', faqA4: 'En la mayoría de los casos dentro del área Tri-State, sí.',
-            contactTitle: 'Contáctanos Hoy',
-            phName: 'Nombre completo', phEmail: 'Correo electrónico', phMsg: 'Cuéntanos sobre tu proyecto',
-            contactBtn: 'Enviar Mensaje',
-            hours: 'L-V 6 am-5 pm, Sáb 7 am-2 pm',
-            footerTag: 'Suministros de estuco y sistemas EIFS de calidad para el área Tri-State.',
-            footerContact: 'Contacto', footerLegal: 'Legal',
-            privacy: 'Política de Privacidad', terms: 'Términos y Condiciones',
-            privacyTitle: 'Política de Privacidad',
-            termsTitle: 'Términos y Condiciones',
-            privacyContent: `<span class="es"><h3>Recopilación de Información</h3><p>Recopilamos información personal como nombre, correo electrónico y número de teléfono cuando la proporciona voluntariamente a través de nuestros formularios de contacto o cotización. También podemos recopilar datos no personales como el tipo de navegador y el sistema operativo para mejorar nuestro sitio web.</p><h3>Uso de la Información</h3><p>La información que recopilamos se utiliza para responder a sus consultas, procesar sus pedidos y mejorar nuestros servicios. No compartiremos su información personal con terceros, excepto cuando sea necesario para cumplir con la ley.</p><h3>Seguridad</h3><p>Tomamos medidas razonables para proteger su información personal contra pérdida, robo y uso no autorizado.</p></span><span class="en"><h3>Information Collection</h3><p>We collect personal information such as name, email, and phone number when you voluntarily provide it through our contact or quote forms. We may also collect non-personal data like browser type and operating system to improve our website.</p><h3>Use of Information</h3><p>The information we collect is used to respond to your inquiries, process your orders, and improve our services. We will not share your personal information with third parties except as necessary to comply with the law.</p><h3>Security</h3><p>We take reasonable measures to protect your personal information from loss, theft, and unauthorized use.</p></span>`,
-            termsContent: `<span class="es"><h3>Aceptación de los Términos</h3><p>Al acceder y utilizar nuestro sitio web, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de los términos, no puede utilizar nuestro sitio web.</p><h3>Uso del Sitio</h3><p>Se le concede una licencia limitada para acceder y hacer uso personal de este sitio. Esta licencia no incluye ninguna reventa o uso comercial de este sitio o su contenido.</p><h3>Limitación de Responsabilidad</h3><p>Oceanside Stucco Supply no será responsable de ningún daño que surja del uso de este sitio web.</p></span><span class="en"><h3>Acceptance of Terms</h3><p>By accessing and using our website, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not use our website.</p><h3>Site Usage</h3><p>You are granted a limited license to access and make personal use of this site. This license does not include any resale or commercial use of this site or its contents.</p><h3>Limitation of Liability</h3><p>Oceanside Stucco Supply shall not be liable for any damages that arise from the use of this website.</p></span>`,
-            copyright: `© ${new Date().getFullYear()} Oceanside Stucco Supply. Todos los derechos reservados.`
-        },
-        en: {
-            docTitle: 'Oceanside Stucco Supply | Quality Stucco & EIFS – Same-Day Delivery',
-            metaDesc: 'Certified stucco materials & EIFS systems. Same-day delivery in the Tri-State area. Get a free quote now.',
-            brand: 'Oceanside Stucco', brandFull: 'Oceanside Stucco Supply',
-            navProducts: 'Products', navServices: 'Services', navGallery: 'Gallery', navAbout: 'About Us',
-            navFAQ: 'FAQ', navContact: 'Contact', ctaQuote: 'Get a Quote',
-            heroH1: 'Quality Materials. Fast Service. Same-Day Delivery.',
-            heroBullet: 'Same-day delivery available',
-            heroP: 'At Oceanside Stucco Supply, we provide trusted stucco and EIFS systems for contractors, remodelers and property owners in the Tri-State area.',
-            ctaHero: 'Request Your Quote', ctaWa: 'WhatsApp', ctaVideo: 'Watch Video',
-            productsTitle: 'Specialized Products',
-            productsDesc: 'Durable and certified materials for construction, remodeling and exterior finishing projects.',
-            prod1: 'Stucco & EIFS Systems', prod2: 'Base & Finish Coats', prod3: 'Mesh & Adhesives',
-            prod4: 'Insulation Boards', prod5: 'Tools & Accessories',
-            servicesTitle: 'Professional Services',
-            servicesDesc: 'Fast deliveries, personalized technical support and wholesale or unit sales.',
-            srv1: 'Fast Deliveries', srv1d: 'Coverage across White Plains.',
-            srv2: 'Technical Support', srv2d: 'Personalized assistance.',
-            srv3: 'Open to Everyone', srv3d: 'Public and contractors.',
-            srv4: 'Wholesale & Retail', srv4d: 'Volume or unit sales.',
-            about2Title: 'About Us',
-            about2Subtitle: '15 years inspired by the perfect finish',
-            about2P1: 'At <strong>Stucco Supply</strong> we have supported builders, architects and designers in more than <em>2,000</em> residential and commercial projects. We specialize in coatings and EIFS systems and guarantee just-in-time inventory.',
-            about2P2: 'We keep your project moving smoothly: custom mixes, color matching, on-site technical support and just-in-time delivery logistics right to the job site.',
-            about2Btn: 'Let’s talk',
-            ctaBannerH: 'Ready to raise the quality of your project?',
-            ctaBannerBtn: 'Request a quote',
-            openQuoteTool: 'Open Interactive Quote Tool',
-            galleryTitle: 'Recent Projects', galleryDesc: 'Quality and precision in every detail.',
-            alt1: 'Residential facade', alt2: 'Commercial finish', alt3: 'EIFS detail', alt4: 'Application process',
-            faqTitle: 'Frequently Asked Questions',
-            faqQ1: 'Do you offer warranty?', faqA1: 'Yes, all our materials come with full manufacturer warranty.',
-            faqQ2: 'Can I place bulk orders?', faqA2: 'Absolutely, we provide volume discounts and dedicated logistics.',
-            faqQ3: 'Do you offer complete EIFS systems?', faqA3: 'Yes, we supply complete kits including basecoat, mesh, adhesive and finish.',
-            faqQ4: 'Do you deliver same day?', faqA4: 'In most of the Tri-State area, yes.',
-            contactTitle: 'Contact Us Today',
-            phName: 'Full name', phEmail: 'Email address', phMsg: 'Tell us about your project',
-            contactBtn: 'Send Message',
-            hours: 'Mon-Fri 6 am-5 pm, Sat 7 am-2 pm',
-            footerTag: 'Premium stucco supplies & EIFS systems for the Tri-State area.',
-            footerContact: 'Contact', footerLegal: 'Legal',
-            privacy: 'Privacy Policy', terms: 'Terms & Conditions',
-            privacyTitle: 'Privacy Policy',
-            termsTitle: 'Terms and Conditions',
-            privacyContent: `<span class="es"><h3>Recopilación de Información</h3><p>Recopilamos información personal como nombre, correo electrónico y número de teléfono cuando la proporciona voluntariamente a través de nuestros formularios de contacto o cotización. También podemos recopilar datos no personales como el tipo de navegador y el sistema operativo para mejorar nuestro sitio web.</p><h3>Uso de la Información</h3><p>La información que recopilamos se utiliza para responder a sus consultas, procesar sus pedidos y mejorar nuestros servicios. No compartiremos su información personal con terceros, excepto cuando sea necesario para cumplir con la ley.</p><h3>Seguridad</h3><p>Tomamos medidas razonables para proteger su información personal contra pérdida, robo y uso no autorizado.</p></span><span class="en"><h3>Information Collection</h3><p>We collect personal information such as name, email, and phone number when you voluntarily provide it through our contact or quote forms. We may also collect non-personal data like browser type and operating system to improve our website.</p><h3>Use of Information</h3><p>The information we collect is used to respond to your inquiries, process your orders, and improve our services. We will not share your personal information with third parties except as necessary to comply with the law.</p><h3>Security</h3><p>We take reasonable measures to protect your personal information from loss, theft, and unauthorized use.</p></span>`,
-            termsContent: `<span class="es"><h3>Aceptación de los Términos</h3><p>Al acceder y utilizar nuestro sitio web, usted acepta estar sujeto a estos Términos y Condiciones. Si no está de acuerdo con alguna parte de los términos, no puede utilizar nuestro sitio web.</p><h3>Uso del Sitio</h3><p>Se le concede una licencia limitada para acceder y hacer uso personal de este sitio. Esta licencia no incluye ninguna reventa o uso comercial de este sitio o su contenido.</p><h3>Limitación de Responsabilidad</h3><p>Oceanside Stucco Supply no será responsable de ningún daño que surja del uso de este sitio web.</p></span><span class="en"><h3>Acceptance of Terms</h3><p>By accessing and using our website, you agree to be bound by these Terms and Conditions. If you disagree with any part of the terms, you may not use our website.</p><h3>Site Usage</h3><p>You are granted a limited license to access and make personal use of this site. This license does not include any resale or commercial use of this site or its contents.</p><h3>Limitation of Liability</h3><p>Oceanside Stucco Supply shall not be liable for any damages that arise from the use of this website.</p></span>`,
-            copyright: `© ${new Date().getFullYear()} Oceanside Stucco Supply. All rights reserved.`
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GIRALDO AEC Solutions | Precision. Partnership. Performance.</title>
+    <meta name="description" content="GIRALDO AEC Solutions specializes in the coordination, fabrication, and integration of architectural systems for high-end projects in New York.">
+    <meta name="keywords" content="façade systems NYC, architectural envelope contractor, metal and glass fabrication NYC, millwork and custom partitions, architectural detailing contractor, project management construction NY, shop drawings & RFI coordination, preconstruction services NYC, residential and commercial construction detailing">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles inspired by references */
+        html {
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-    };
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #ffffff;
+            color: #1a202c;
+        }
+        .hero-bg {
+            /* Hero: 21.png - Abstract architectural facade */
+            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/21.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+        .nav-link-active {
+            color: #B08D57;
+            font-weight: 500;
+        }
+        .btn {
+            @apply inline-block text-center uppercase tracking-widest text-sm font-semibold py-3 px-8 rounded-sm transition-all duration-300 ease-in-out;
+        }
+        .btn-primary {
+            @apply bg-transparent text-white border border-white hover:bg-white hover:text-black;
+        }
+        .btn-dark {
+             @apply bg-gray-900 text-white hover:bg-gray-700 disabled:bg-gray-400;
+        }
+        .btn-secondary {
+            @apply border border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900;
+        }
+        .section-title {
+            @apply text-4xl md:text-5xl font-bold text-gray-900 mb-4;
+        }
+        .section-subtitle {
+            @apply text-sm font-medium text-gray-500 uppercase tracking-widest mb-6;
+        }
+        #lang-toggle {
+            cursor: pointer;
+            font-weight: 500;
+            padding: 6px 10px;
+            border: 1px solid transparent;
+            border-radius: 6px;
+        }
+        #lang-toggle:hover {
+            border-color: #e5e7eb;
+        }
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .project-card .details {
+            transition: opacity 0.3s ease-in-out;
+        }
+        .project-card:hover .details {
+            opacity: 1;
+        }
+        .project-card img {
+            transition: transform 0.3s ease-in-out;
+        }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
+        .service-card {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.1));
+            border-radius: 0.375rem; /* same as rounded-md */
+        }
+        .service-card-content {
+            position: relative;
+            z-index: 10;
+        }
 
-    /* ===== TRANSLATE FUNCTION ===== */
-    const langBtn = document.getElementById('langBtn');
-    function translate() {
-        document.querySelectorAll('[data-i18n]').forEach(el => { if (dict[lang][el.dataset.i18n]) { el.innerHTML = dict[lang][el.dataset.i18n]; }});
-        document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { if (dict[lang][el.dataset.i18nPlaceholder]) { el.placeholder = dict[lang][el.dataset.i18nPlaceholder]; }});
-        document.querySelectorAll('[data-i18n-alt]').forEach(el => { if (dict[lang][el.dataset.i18nAlt]) { el.alt = dict[lang][el.dataset.i18nAlt]; }});
-        document.querySelectorAll('[data-i18n-content]').forEach(el => { if (dict[lang][el.dataset.i18nContent]) { el.innerHTML = dict[lang][el.dataset.i18nContent]; }});
+        .gemini-results h4 {
+            @apply text-lg font-semibold text-gray-800 mt-4 mb-2;
+        }
+        .gemini-results ul {
+            @apply list-disc list-inside text-gray-600 space-y-1;
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #B08D57;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="antialiased">
 
-        document.title = dict[lang].docTitle;
-        document.querySelector('meta[name="description"]').setAttribute('content', dict[lang].metaDesc);
-        langBtn.textContent = lang === 'es' ? 'EN' : 'ES';
-        document.documentElement.lang = lang;
-        
-        const cotizadorContent = document.getElementById('cotizadorContent');
-        if (cotizadorContent) { cotizadorContent.className = 'cotizador-content ' + lang; }
-
-        document.querySelectorAll('.legal-modal').forEach(el => {
-            el.classList.remove('es', 'en');
-            el.classList.add(lang);
-        });
-
-        lucide.createIcons();
-    }
-    langBtn.onclick = () => { lang = lang === 'es' ? 'en' : 'es'; translate(); };
-
-    /* ===== LIGHTBOX ===== */
-    const lb = document.getElementById('lightbox');
-    const lbImg = document.getElementById('lightbox-img');
-    if(lb) {
-        document.querySelectorAll('.gallery img').forEach(img => {
-            img.onclick = () => { lbImg.src = img.src; lb.classList.add('active'); };
-        });
-        lb.onclick = () => lb.classList.remove('active');
-    }
-
-    /* ===== BACK TO TOP ===== */
-    const topBtn = document.getElementById('topBtn');
-    if(topBtn) {
-        window.addEventListener('scroll', () => { topBtn.style.display = window.scrollY > 600 ? 'flex' : 'none'; });
-        topBtn.onclick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    /* ===== CONTACT FORM ===== */
-    const formContact = document.getElementById('formContact');
-    if(formContact) {
-        formContact.onsubmit = e => {
-            e.preventDefault();
-            // A custom modal would be better than alert() for production
-            alert(lang === 'es' ? '¡Gracias! Te contactaremos pronto.' : 'Thank you! We will get back to you shortly.');
-            e.target.reset();
-        };
-    }
-
-    /* ===== COTIZADOR INTERACTIVO ===== */
-    const cotizadorModal = document.getElementById('cotizadorModal');
-    const openCotizadorBtn = document.getElementById('openCotizadorBtn');
-    const closeCotizadorBtn = document.getElementById('closeCotizadorBtn');
-    const toggleQuoteLangBtn = document.getElementById('toggleQuoteLang');
-    const cotizadorContent = document.getElementById('cotizadorContent');
-    const quoteItemsContainer = document.getElementById('stucco-items');
-    const totalUsdEl = document.getElementById('total-usd');
-    const sendQuoteWhatsAppBtn = document.getElementById('sendQuoteWhatsApp');
-    const quoteItems = [
-        { name_es: 'Aplicación de Stucco Exterior', name_en: 'Exterior Stucco Application', desc_es: 'Recubrimiento resistente y decorativo', desc_en: 'Resistant and decorative coating', usd: 200.00 },
-        { name_es: 'Reparación de Grietas', name_en: 'Crack Repair', desc_es: 'Sellado y acabado de fisuras', desc_en: 'Fissure sealing and finishing', usd: 120.00 },
-        { name_es: 'Impermeabilización de Fachadas', name_en: 'Facade Waterproofing', desc_es: 'Protección contra agua y humedad', desc_en: 'Water and moisture protection', usd: 180.00 },
-        { name_es: 'Instalación de Revestimiento', name_en: 'Cladding Installation', desc_es: 'Revestimiento decorativo interior/exterior', desc_en: 'Interior/exterior decorative coating', usd: 150.00 },
-        { name_es: 'Mantenimiento y Pintura', name_en: 'Maintenance and Painting', desc_es: 'Limpieza y repintado de superficies', desc_en: 'Surface cleaning and repainting', usd: 100.00 }
-    ];
-    function cargarTablaCotizador() {
-        if(!quoteItemsContainer) return;
-        quoteItemsContainer.innerHTML = '';
-        quoteItems.forEach((item, i) => {
-            const div = document.createElement("div");
-            div.className = "border p-3 sm:p-4 rounded-xl shadow-sm bg-slate-50";
-            div.innerHTML = `
-                <div class="flex justify-between items-start gap-3">
-                  <div class="flex-grow">
-                    <h4 class="font-bold text-base text-[var(--primary)]">
-                        <span class="es">${item.name_es}</span>
-                        <span class="en">${item.name_en}</span>
-                    </h4>
-                    <p class="text-slate-600 text-sm mt-1">
-                        <span class="es">${item.desc_es}</span>
-                        <span class="en">${item.desc_en}</span>
-                    </p>
-                  </div>
-                  <input type="checkbox" id="item_check_${i}" data-idx="${i}" data-usd="${item.usd}" onchange="calcularTotal()" class="w-5 h-5 cursor-pointer flex-shrink-0 mt-1 accent-[var(--primary)]">
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-lg fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold text-gray-900 tracking-wider">GIRALDO <span class="font-extralight">AEC</span></a>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_about">About</a>
+                <a href="#services" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_services">Services</a>
+                <a href="#projects" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_projects">Projects</a>
+                <a href="#partners" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_partners">Partners</a>
+                <a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_contact">Contact</a>
+                <div id="lang-toggle" class="text-gray-500 hover:text-gray-900 transition-colors text-sm">
+                    <span data-lang="en" class="font-semibold">ENG</span> / <span data-lang="es">ESP</span>
                 </div>
-                <div class="flex justify-end items-center gap-3 mt-3 pt-3 border-t border-slate-200">
-                  <label for="item_qty_${i}" class="text-sm font-medium text-slate-700">
-                      <span class="es">Cant:</span><span class="en">Qty:</span>
-                  </label>
-                  <input type="number" id="item_qty_${i}" min="1" value="1" onchange="calcularTotal()" class="w-20 border border-slate-300 rounded-md px-2 py-1 text-center" disabled>
-                  <span class="font-semibold w-24 text-right text-slate-800">$${item.usd.toFixed(2)}</span>
+            </nav>
+            <button id="mobile-menu-button" class="md:hidden">
+                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <a href="#about" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_about_mobile">About</a>
+            <a href="#services" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_services_mobile">Services</a>
+            <a href="#projects" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_projects_mobile">Projects</a>
+            <a href="#partners" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_partners_mobile">Partners</a>
+            <a href="#contact" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_contact_mobile">Contact</a>
+             <div class="px-6 py-4">
+                <div id="lang-toggle-mobile" class="inline-block text-gray-600 border border-gray-300 rounded-md p-2">
+                    <span data-lang="en" class="font-semibold">ENG</span> / <span data-lang="es">ESP</span>
                 </div>
-              `;
-            quoteItemsContainer.appendChild(div);
-        });
-        calcularTotal();
-    }
-    window.calcularTotal = function() {
-        let total = 0;
-        document.querySelectorAll("#stucco-items > div").forEach((card, i) => {
-            const chk = card.querySelector(`#item_check_${i}`);
-            const qtyInput = card.querySelector(`#item_qty_${i}`);
-            if(!chk || !qtyInput) return;
-            const qty = parseInt(qtyInput.value) || 1;
-            qtyInput.disabled = !chk.checked;
-            if (chk.checked) {
-                total += parseFloat(chk.dataset.usd) * qty;
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Home Section -->
+        <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white">
+            <div class="max-w-5xl px-6">
+                <h1 class="text-5xl md:text-8xl font-bold tracking-tight leading-tight mb-6" data-key="home_headline">Precision. Partnership. Performance.</h1>
+                <p class="text-lg md:text-xl font-light text-gray-200 mb-10 max-w-3xl mx-auto" data-key="home_subheadline">Architectural systems designed, detailed, and delivered with excellence.</p>
+                <a href="#contact" class="btn btn-primary" data-key="home_cta">Request a Consultation</a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="py-28 md:py-40 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="grid md:grid-cols-12 gap-12 items-center">
+                    <div class="md:col-span-5 fade-in">
+                        <h3 class="section-subtitle" data-key="about_subtitle">Who We Are</h3>
+                        <h2 class="section-title" data-key="about_title">Clarity Through Construction</h2>
+                    </div>
+                    <div class="md:col-span-7 text-lg text-gray-600 leading-relaxed space-y-6 fade-in">
+                        <p data-key="about_p1">GIRALDO AEC Solutions is a New York-based company specializing in the coordination, fabrication, and integration of architectural systems across commercial, residential, and institutional environments.</p>
+                        <p data-key="about_p2">We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.</p>
+                    </div>
+                </div>
+                 <div class="mt-20 md:mt-32 text-center max-w-4xl mx-auto fade-in">
+                    <p class="text-2xl md:text-3xl font-medium text-gray-800 italic" data-key="about_philosophy">“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”</p>
+                    <p class="mt-4 text-gray-500" data-key="about_philosophy_tag">— Philosophy</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="py-28 md:py-40 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="fade-in">
+                    <h3 class="section-subtitle" data-key="services_subtitle">What We Offer</h3>
+                    <h2 class="section-title" data-key="services_title">A System for Success</h2>
+                    <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-600" data-key="services_p">Every project is a system. We help you align performance, design, and execution through the following service categories:</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20 text-left">
+                    <!-- Service Card 1 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/01.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service1_title">Façade & Building Envelope</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service1_li1">Curtain walls, structural glass</li><li data-key="service1_li2">Architectural metals & panels</li><li data-key="service1_li3">Anchoring & waterproofing</li></ul>
+                        </div>
+                    </div>
+                    <!-- Service Card 2 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/28.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service2_title">Interior Architectural Systems</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service2_li1">Glass partitions, sliding panels</li><li data-key="service2_li2">Custom railings, movable walls</li><li data-key="service2_li3">Acoustic separations</li></ul>
+                        </div>
+                    </div>
+                    <!-- Service Card 3 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/13.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service3_title">Fabrication & Millwork</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service3_li1">Wood, metal, stone integrations</li><li data-key="service3_li2">Finish carpentry, material transitions</li><li data-key="service3_li3">Bespoke assemblies</li></ul>
+                        </div>
+                    </div>
+                    <!-- Service Card 4 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/11.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service4_title">Preconstruction & Support</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service4_li1">Budget estimating, scope dev</li><li data-key="service4_li2">Shop drawings, submittals, RFIs</li><li data-key="service4_li3">Value engineering</li></ul>
+                        </div>
+                    </div>
+                    <!-- Service Card 5 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/collage.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service5_title">Project Management</h4>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service5_li1">On-site coordination</li><li data-key="service5_li2">Fabricator alignment, logistics</li><li data-key="service5_li3">Field adjustments</li></ul>
+                        </div>
+                    </div>
+                    <!-- Service Card 6 -->
+                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/29.png');">
+                        <div class="service-card-content">
+                            <h4 class="text-2xl font-bold mb-2" data-key="service6_title">Optional Services</h4>
+                            <p class="text-gray-200" data-key="service6_p">Full material sourcing, prototyping coordination, and installation advisement available on request.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-28 md:py-40 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center fade-in">
+                    <h3 class="section-subtitle" data-key="projects_subtitle">Selected Work</h3>
+                    <h2 class="section-title" data-key="projects_title">Commitment to Technical Clarity</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20">
+                    <!-- Project Card 1: Lobby Renovation -->
+                    <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/15.png" alt="Vestíbulo moderno y elegante con iluminación espectacular" class="w-full h-full object-cover transition-transform duration-300">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project1_title">717 Fifth Avenue, NYC</h4>
+                                    <p class="text-gray-200" data-key="project1_desc">Lobby renovation with integrated lighting and custom architectural metals.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Project Card 2: Historic Facade -->
+                    <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/05.png" alt="Primer plano de una fachada histórica ornamentada" class="w-full h-full object-cover transition-transform duration-300">
+                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project2_title">The Jane Hotel, NYC</h4>
+                                    <p class="text-gray-200" data-key="project2_desc">Historical restoration with façade retrofit and custom glass systems.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Project Card 3: Building Envelope (Updated Image) -->
+                    <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/19.png" alt="Edificio moderno con fachada de vidrio y metal, vista horizontal" class="w-full h-full object-cover transition-transform duration-300"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Building+Envelope+New';">
+                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project3_title">Waterline Square, NYC</h4>
+                                    <p class="text-gray-200" data-key="project3_desc">Envelope systems installation coordination in a high-density site.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Project Card 4: Transit Interior -->
+                    <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/09.png" alt="Interior de una moderna terminal de aeropuerto o tránsito" class="w-full h-full object-cover transition-transform duration-300">
+                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project4_title">Grand Central – East Side Access</h4>
+                                    <p class="text-gray-200" data-key="project4_desc">Material integration of custom stone and glass systems for transit project.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Project Card 5: Metal Facade Detail -->
+                    <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/07.png" alt="Detalle de fachada de metal" class="w-full h-full object-cover transition-transform duration-300">
+                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project5_title">Private Residence, Hamptons</h4>
+                                    <p class="text-gray-200" data-key="project5_desc">Custom metal paneling and window system integration.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- Project Card 6: High-End Interior -->
+                     <a href="#" class="group block project-card fade-in">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/16.png" alt="Interior de lujo con ebanistería a medida" class="w-full h-full object-cover transition-transform duration-300">
+                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white" data-key="project6_title">Corporate HQ, Midtown</h4>
+                                    <p class="text-gray-200" data-key="project6_desc">Bespoke interior millwork and integrated glass partitions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="text-center mt-20 space-x-4 fade-in">
+                    <button class="btn btn-dark" data-key="projects_cta1">View Project Gallery</button>
+                    <button class="btn btn-secondary" data-key="projects_cta2">Request Case Study PDF</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partners Section -->
+        <section id="partners" class="py-28 md:py-40 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="fade-in">
+                    <h3 class="section-subtitle" data-key="partners_subtitle">Trusted By The Best</h3>
+                    <h2 class="section-title" data-key="partners_title">Our Partners</h2>
+                    <div class="mt-16 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-8 items-center">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 1" class="mx-auto">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 2" class="mx-auto">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 3" class="mx-auto">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 4" class="mx-auto">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 5" class="mx-auto">
+                        <img src="https://placehold.co/150x80/e2e8f0/cbd5e0?text=Partner" alt="Logo de Socio 6" class="mx-auto">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="py-28 md:py-40 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center fade-in">
+                    <h3 class="section-subtitle" data-key="testimonials_subtitle">Testimonials</h3>
+                </div>
+                <div class="grid lg:grid-cols-2 gap-10 md:gap-20 mt-16">
+                    <div class="bg-white p-8 rounded-md fade-in">
+                        <p class="text-xl text-gray-700 italic" data-key="testimonial1_text">"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch."</p>
+                        <p class="mt-6 font-semibold text-gray-800" data-key="testimonial1_author">— Senior Architect, Manhattan Studio</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-md fade-in">
+                        <p class="text-xl text-gray-700 italic" data-key="testimonial2_text">"Smart, responsive, precise. Their coordination saved us weeks on site."</p>
+                        <p class="mt-6 font-semibold text-gray-800" data-key="testimonial2_author">— Project Manager, NYC Developer</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-28 md:py-40 bg-gray-50">
+            <div class="container mx-auto px-6">
+                <!-- Gemini Project Idea Generator -->
+                <div class="bg-white rounded-md p-8 md:p-12 mb-20 fade-in">
+                    <div class="text-center">
+                        <h2 class="text-3xl md:text-4xl font-bold text-gray-900" data-key="gemini_title">✨ Project Idea Generator</h2>
+                        <p class="max-w-2xl mx-auto mt-4 text-gray-600" data-key="gemini_desc">Have a project in mind? Describe it below and our AI consultant will provide initial feedback, material suggestions, and key considerations to get you started.</p>
+                    </div>
+                    <div class="max-w-3xl mx-auto mt-8">
+                        <textarea id="project-description" rows="4" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]" data-key-placeholder="gemini_placeholder"></textarea>
+                        <button id="generate-ideas-btn" type="button" class="w-full mt-4 btn btn-dark" data-key="gemini_button">Generate Ideas</button>
+                    </div>
+                    <div id="gemini-results-container" class="max-w-3xl mx-auto mt-6 gemini-results" style="display: none;">
+                        <div id="gemini-loader" class="loader" style="display: none;"></div>
+                        <div id="gemini-output"></div>
+                        <button id="add-to-message-btn" type="button" class="mt-4 btn btn-secondary" data-key="gemini_add_to_message" style="display: none;">Add to Message</button>
+                    </div>
+                </div>
+
+                <div class="text-center fade-in">
+                    <h3 class="section-subtitle" data-key="contact_subtitle">Contact Us</h3>
+                    <h2 class="section-title" data-key="contact_title">Let's Build Something Exceptional</h2>
+                </div>
+                <div class="grid md:grid-cols-2 gap-16 mt-20">
+                    <!-- Contact Form -->
+                    <form id="contact-form" action="#" method="POST" class="space-y-6 fade-in">
+                        <div class="grid sm:grid-cols-2 gap-6">
+                            <div><label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_name">Name</label><input type="text" id="name" name="name" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
+                            <div><label for="company" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_company">Company</label><input type="text" id="company" name="company" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
+                        </div>
+                        <div><label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_email">Email</label><input type="email" id="email" name="email" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
+                        <div><label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_message">Message</label><textarea id="message" name="message" rows="5" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></textarea></div>
+                        <div><button type="submit" class="w-full btn btn-dark" data-key="form_submit">Send Message</button></div>
+                    </form>
+                    <!-- Contact Info -->
+                    <div class="space-y-10 fade-in">
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B08D57] mr-5 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <div><h4 class="text-lg font-semibold text-gray-800" data-key="contact_email_title">Email</h4><a href="mailto:info@giraldoaec.com" class="text-gray-600 hover:text-[#B08D57] transition-colors">info@giraldoaec.com</a></div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B08D57] mr-5 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <div><h4 class="text-lg font-semibold text-gray-800" data-key="contact_phone_title">Phone</h4><a href="tel:+19176835865" class="text-gray-600 hover:text-[#B08D57] transition-colors">+1 (917) 683-5865</a></div>
+                        </div>
+                        <div class="flex items-start">
+                            <svg class="w-6 h-6 text-[#B08D57] mr-5 flex-shrink-0 mt-1" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <div><h4 class="text-lg font-semibold text-gray-800" data-key="contact_location_title">Location</h4><p class="text-gray-600">201 50th Ave, Long Island City, NY 11101</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-gray-400">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-3 gap-10">
+                <div>
+                    <h4 class="text-lg font-semibold text-white">GIRALDO AEC Solutions</h4>
+                    <p class="mt-2" data-key="footer_tagline">Precision. Partnership. Performance.</p>
+                    <div class="mt-6 flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white" data-key="footer_links_title">Quick Links</h4>
+                    <ul class="mt-4 space-y-2">
+                        <li><a href="#about" class="hover:text-white transition-colors" data-key="footer_link_about">About Us</a></li>
+                        <li><a href="#services" class="hover:text-white transition-colors" data-key="footer_link_services">Services</a></li>
+                        <li><a href="#projects" class="hover:text-white transition-colors" data-key="footer_link_projects">Projects</a></li>
+                        <li><a href="#partners" class="hover:text-white transition-colors" data-key="footer_link_partners">Partners</a></li>
+                        <li><a href="#contact" class="hover:text-white transition-colors" data-key="footer_link_contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold text-white" data-key="footer_legal_title">Legal & Certifications</h4>
+                    <ul class="mt-4 space-y-2">
+                        <li data-key="footer_cert1">OSHA 30 Certified</li>
+                        <li data-key="footer_cert2">NYC WBE (pending)</li>
+                        <li><a href="#" class="hover:text-white transition-colors" data-key="footer_legal_privacy">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors" data-key="footer_legal_terms">Terms of Use</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-16 border-t border-gray-800 pt-8 text-center text-sm">
+                <p data-key="footer_copyright">&copy; 2024 GIRALDO AEC Solutions. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // --- TRANSLATION DATA ---
+            const translations = {
+                en: {
+                    nav_about: "About", nav_services: "Services", nav_projects: "Projects", nav_partners: "Partners", nav_contact: "Contact",
+                    nav_about_mobile: "About", nav_services_mobile: "Services", nav_projects_mobile: "Projects", nav_partners_mobile: "Partners", nav_contact_mobile: "Contact",
+                    home_headline: "Precision. Partnership. Performance.",
+                    home_subheadline: "Architectural systems designed, detailed, and delivered with excellence.",
+                    home_cta: "Request a Consultation",
+                    about_subtitle: "Who We Are",
+                    about_title: "Clarity Through Construction",
+                    about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, fabrication, and integration of architectural systems across commercial, residential, and institutional environments.",
+                    about_p2: "We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
+                    about_philosophy: "“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”",
+                    about_philosophy_tag: "— Philosophy",
+                    services_subtitle: "What We Offer",
+                    services_title: "A System for Success",
+                    services_p: "Every project is a system. We help you align performance, design, and execution through the following service categories:",
+                    service1_title: "Façade & Building Envelope",
+                    service1_li1: "Curtain walls, structural glass",
+                    service1_li2: "Architectural metals & panels",
+                    service1_li3: "Anchoring & waterproofing",
+                    service2_title: "Interior Architectural Systems",
+                    service2_li1: "Glass partitions, sliding panels",
+                    service2_li2: "Custom railings, movable walls",
+                    service2_li3: "Acoustic separations",
+                    service3_title: "Fabrication & Millwork",
+                    service3_li1: "Wood, metal, stone integrations",
+                    service3_li2: "Finish carpentry, material transitions",
+                    service3_li3: "Bespoke assemblies",
+                    service4_title: "Preconstruction & Support",
+                    service4_li1: "Budget estimating, scope dev",
+                    service4_li2: "Shop drawings, submittals, RFIs",
+                    service4_li3: "Value engineering",
+                    service5_title: "Project Management",
+                    service5_li1: "On-site coordination",
+                    service5_li2: "Fabricator alignment, logistics",
+                    service5_li3: "Field adjustments",
+                    service6_title: "Optional Services",
+                    service6_p: "Full material sourcing, prototyping coordination, and installation advisement available on request.",
+                    projects_subtitle: "Selected Work",
+                    projects_title: "Commitment to Technical Clarity",
+                    project1_title: "717 Fifth Avenue, NYC",
+                    project1_desc: "Lobby renovation with integrated lighting and custom architectural metals.",
+                    project2_title: "The Jane Hotel, NYC",
+                    project2_desc: "Historical restoration with façade retrofit and custom glass systems.",
+                    project3_title: "Waterline Square, NYC",
+                    project3_desc: "Envelope systems installation coordination in a high-density site.",
+                    project4_title: "Grand Central – East Side Access",
+                    project4_desc: "Material integration of custom stone and glass systems for transit project.",
+                    project5_title: "Private Residence, Hamptons",
+                    project5_desc: "Custom metal paneling and window system integration.",
+                    project6_title: "Corporate HQ, Midtown",
+                    project6_desc: "Bespoke interior millwork and integrated glass partitions.",
+                    partners_subtitle: "Trusted By The Best",
+                    partners_title: "Our Partners",
+                    testimonials_subtitle: "Testimonials",
+                    testimonial1_text: "\"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch.\"",
+                    testimonial1_author: "— Senior Architect, Manhattan Studio",
+                    testimonial2_text: "\"Smart, responsive, precise. Their coordination saved us weeks on site.\"",
+                    testimonial2_author: "— Project Manager, NYC Developer",
+                    gemini_title: "✨ Project Idea Generator",
+                    gemini_desc: "Have a project in mind? Describe it below and our AI consultant will provide initial feedback, material suggestions, and key considerations to get you started.",
+                    gemini_placeholder: "e.g., A new residential tower with a focus on sustainable facade systems...",
+                    gemini_button: "Generate Ideas",
+                    gemini_add_to_message: "Add to Message",
+                    contact_subtitle: "Contact Us",
+                    contact_title: "Let's Build Something Exceptional",
+                    form_name: "Name",
+                    form_company: "Company",
+                    form_email: "Email",
+                    form_message: "Message",
+                    form_submit: "Send Message",
+                    contact_email_title: "Email",
+                    contact_phone_title: "Phone",
+                    contact_location_title: "Location",
+                    footer_tagline: "Precision. Partnership. Performance.",
+                    footer_links_title: "Quick Links",
+                    footer_link_about: "About Us",
+                    footer_link_services: "Services",
+                    footer_link_projects: "Projects",
+                    footer_link_partners: "Partners",
+                    footer_link_contact: "Contact",
+                    footer_legal_title: "Legal & Certifications",
+                    footer_cert1: "OSHA 30 Certified",
+                    footer_cert2: "NYC WBE (pending)",
+                    footer_legal_privacy: "Privacy Policy",
+                    footer_legal_terms: "Terms of Use",
+                    footer_copyright: "&copy; 2024 GIRALDO AEC Solutions. All Rights Reserved."
+                },
+                es: {
+                    nav_about: "Nosotros", nav_services: "Servicios", nav_projects: "Proyectos", nav_partners: "Socios", nav_contact: "Contacto",
+                    nav_about_mobile: "Nosotros", nav_services_mobile: "Servicios", nav_projects_mobile: "Proyectos", nav_partners_mobile: "Socios", nav_contact_mobile: "Contacto",
+                    home_headline: "Precisión. Colaboración. Rendimiento.",
+                    home_subheadline: "Sistemas arquitectónicos diseñados, detallados y entregados con excelencia.",
+                    home_cta: "Solicitar una Consulta",
+                    about_subtitle: "Quiénes Somos",
+                    about_title: "Claridad a Través de la Construcción",
+                    about_p1: "GIRALDO AEC Solutions es una empresa con sede en Nueva York especializada en la coordinación, fabricación e integración de sistemas arquitectónicos en entornos comerciales, residenciales e institucionales.",
+                    about_p2: "Apoyamos a equipos de diseño, desarrolladores y constructores con una sólida base en ejecución técnica, conocimiento de materiales y una mentalidad orientada al detalle. Operamos en la intersección de la intención de diseño y la capacidad de construcción.",
+                    about_philosophy: "“Creemos en la claridad a través de la construcción. Cada proyecto merece detalle, disciplina y una respuesta a medida.”",
+                    about_philosophy_tag: "— Filosofía",
+                    services_subtitle: "Qué Ofrecemos",
+                    services_title: "Un Sistema para el Éxito",
+                    services_p: "Cada proyecto es un sistema. Le ayudamos a alinear el rendimiento, el diseño y la ejecución a través de las siguientes categorías de servicios:",
+                    service1_title: "Fachadas y Envolventes",
+                    service1_li1: "Muros cortina, vidrio estructural",
+                    service1_li2: "Metales y paneles arquitectónicos",
+                    service1_li3: "Anclaje e impermeabilización",
+                    service2_title: "Sistemas Arquitectónicos Interiores",
+                    service2_li1: "Mamparas de vidrio, paneles deslizantes",
+                    service2_li2: "Barandales a medida, paredes móviles",
+                    service2_li3: "Separaciones acústicas",
+                    service3_title: "Fabricación y Carpintería",
+                    service3_li1: "Integraciones de madera, metal, piedra",
+                    service3_li2: "Carpintería de acabado, transiciones de materiales",
+                    service3_li3: "Ensamblajes a medida",
+                    service4_title: "Preconstrucción y Soporte",
+                    service4_li1: "Estimación de presupuesto, desarrollo de alcance",
+                    service4_li2: "Planos de taller, entregas, RFIs",
+                    service4_li3: "Ingeniería de valor",
+                    service5_title: "Gestión de Proyectos",
+                    service5_li1: "Coordinación en sitio",
+                    service5_li2: "Alineación de fabricantes, logística",
+                    service5_li3: "Ajustes en campo",
+                    service6_title: "Servicios Opcionales",
+                    service6_p: "Suministro completo de materiales, coordinación de prototipos y asesoramiento de instalación disponibles bajo petición.",
+                    projects_subtitle: "Trabajos Seleccionados",
+                    projects_title: "Compromiso con la Claridad Técnica",
+                    project1_title: "717 Fifth Avenue, NYC",
+                    project1_desc: "Renovación de lobby con iluminación integrada y metales arquitectónicos personalizados.",
+                    project2_title: "The Jane Hotel, NYC",
+                    project2_desc: "Restauración histórica con reacondicionamiento de fachada y sistemas de vidrio a medida.",
+                    project3_title: "Waterline Square, NYC",
+                    project3_desc: "Coordinación de instalación de sistemas de envolvente en un sitio de alta densidad.",
+                    project4_title: "Grand Central – East Side Access",
+                    project4_desc: "Integración de materiales de piedra y sistemas de vidrio a medida para proyecto de tránsito.",
+                    project5_title: "Residencia Privada, Hamptons",
+                    project5_desc: "Panelado metálico personalizado e integración de sistemas de ventanas.",
+                    project6_title: "Sede Corporativa, Midtown",
+                    project6_desc: "Carpintería interior a medida y mamparas de vidrio integradas.",
+                    partners_subtitle: "Confiado por los Mejores",
+                    partners_title: "Nuestros Socios",
+                    testimonials_subtitle: "Testimonios",
+                    testimonial1_text: "\"Giraldo AEC aportó disciplina y elegancia a una construcción compleja. Su equipo resolvió detalles que nadie más tocaría.\"",
+                    testimonial1_author: "— Arquitecto Senior, Manhattan Studio",
+                    testimonial2_text: "\"Inteligentes, receptivos, precisos. Su coordinación nos ahorró semanas en el sitio.\"",
+                    testimonial2_author: "— Gerente de Proyecto, Desarrollador de NYC",
+                    gemini_title: "✨ Generador de Ideas de Proyectos",
+                    gemini_desc: "Tiene un proyecto en mente? Descríbalo a continuación y nuestro consultor de IA le proporcionará comentarios iniciales, sugerencias de materiales y consideraciones clave para comenzar.",
+                    gemini_placeholder: "Ej: Una nueva torre residencial con enfoque en sistemas de fachada sostenibles...",
+                    gemini_button: "Generar Ideas",
+                    gemini_add_to_message: "Añadir al Mensaje",
+                    contact_subtitle: "Contáctenos",
+                    contact_title: "Construyamos Algo Excepcional",
+                    form_name: "Nombre",
+                    form_company: "Empresa",
+                    form_email: "Correo Electrónico",
+                    form_message: "Mensaje",
+                    form_submit: "Enviar Mensaje",
+                    contact_email_title: "Correo Electrónico",
+                    contact_phone_title: "Teléfono",
+                    contact_location_title: "Ubicación",
+                    footer_tagline: "Precisión. Colaboración. Rendimiento.",
+                    footer_links_title: "Enlaces Rápidos",
+                    footer_link_about: "Nosotros",
+                    footer_link_services: "Servicios",
+                    footer_link_projects: "Proyectos",
+                    footer_link_partners: "Socios",
+                    footer_link_contact: "Contacto",
+                    footer_legal_title: "Legal y Certificaciones",
+                    footer_cert1: "Certificado OSHA 30",
+                    footer_cert2: "NYC WBE (pendiente)",
+                    footer_legal_privacy: "Política de Privacidad",
+                    footer_legal_terms: "Términos de Uso",
+                    footer_copyright: "&copy; 2024 GIRALDO AEC Solutions. Todos los derechos reservados."
+                }
+            };
+
+            let currentLang = 'en'; // Default language
+
+            function applyTranslations() {
+                const elements = document.querySelectorAll('[data-key]');
+                elements.forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    if (translations[currentLang][key]) {
+                        element.textContent = translations[currentLang][key];
+                    }
+                });
+
+                // Handle placeholder translation separately
+                const projectDescription = document.getElementById('project-description');
+                const placeholderKey = projectDescription.getAttribute('data-key-placeholder');
+                if (translations[currentLang][placeholderKey]) {
+                    projectDescription.placeholder = translations[currentLang][placeholderKey];
+                }
             }
-        });
-        if(totalUsdEl) totalUsdEl.textContent = total.toFixed(2);
-    }
-    if(sendQuoteWhatsAppBtn) {
-        sendQuoteWhatsAppBtn.onclick = function() {
-            let quoteLang = cotizadorContent.classList.contains('es') ? 'es' : 'en';
-            let mensaje = quoteLang === 'es' ? "🧱 Oceanside Cotización:%0A" : "🧱 Oceanside Quote:%0A";
-            let total = 0;
-            let hasItems = false;
-            quoteItems.forEach((item, i) => {
-                const chk = document.getElementById(`item_check_${i}`);
-                if (chk && chk.checked) {
-                    hasItems = true;
-                    const qty = parseInt(document.getElementById(`item_qty_${i}`).value);
-                    const name = quoteLang === 'es' ? item.name_es : item.name_en;
-                    const subtotal = item.usd * qty;
-                    mensaje += `• ${name} x${qty} = $${subtotal.toFixed(2)}%0A`;
-                    total += subtotal;
+
+            // --- LANGUAGE TOGGLE ---
+            const langToggle = document.getElementById('lang-toggle');
+            const langToggleMobile = document.getElementById('lang-toggle-mobile');
+
+            function toggleLanguage() {
+                currentLang = currentLang === 'en' ? 'es' : 'en';
+                applyTranslations();
+            }
+
+            langToggle.addEventListener('click', toggleLanguage);
+            langToggleMobile.addEventListener('click', toggleLanguage);
+
+            // --- MOBILE MENU TOGGLE ---
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const navLinksMobile = mobileMenu.querySelectorAll('a');
+
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            navLinksMobile.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden'); // Hide menu after clicking a link
+                });
+            });
+
+            // --- SCROLL ANIMATIONS (Fade In) ---
+            const faders = document.querySelectorAll('.fade-in');
+
+            const appearOptions = {
+                threshold: 0.2,
+                rootMargin: "0px 0px -100px 0px"
+            };
+
+            const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('is-visible');
+                        appearOnScroll.unobserve(entry.target);
+                    }
+                });
+            }, appearOptions);
+
+            faders.forEach(fader => {
+                appearOnScroll.observe(fader);
+            });
+
+            // --- HEADER SCROLL EFFECT ---
+            const header = document.getElementById('header');
+            const heroSection = document.getElementById('home');
+            const headerHeight = header.offsetHeight;
+
+            function updateHeaderBackground() {
+                if (window.scrollY > heroSection.offsetHeight - headerHeight) {
+                    header.classList.remove('bg-white/80', 'backdrop-blur-lg');
+                    header.classList.add('bg-white', 'shadow-md');
+                } else {
+                    header.classList.add('bg-white/80', 'backdrop-blur-lg');
+                    header.classList.remove('bg-white', 'shadow-md');
+                }
+            }
+
+            window.addEventListener('scroll', updateHeaderBackground);
+            updateHeaderBackground(); // Call on load to set initial state
+
+            // --- SMOOTH SCROLLING ---
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // --- GEMINI PROJECT IDEA GENERATOR ---
+            const generateIdeasBtn = document.getElementById('generate-ideas-btn');
+            const projectDescriptionInput = document.getElementById('project-description');
+            const geminiResultsContainer = document.getElementById('gemini-results-container');
+            const geminiLoader = document.getElementById('gemini-loader');
+            const geminiOutput = document.getElementById('gemini-output');
+            const addToMessageBtn = document.getElementById('add-to-message-btn');
+            const contactMessageInput = document.getElementById('message');
+
+            generateIdeasBtn.addEventListener('click', async () => {
+                const prompt = projectDescriptionInput.value.trim();
+                if (!prompt) {
+                    geminiOutput.innerHTML = '<p class="text-red-500">Please enter a project description.</p>';
+                    geminiResultsContainer.style.display = 'block';
+                    addToMessageBtn.style.display = 'none';
+                    return;
+                }
+
+                geminiResultsContainer.style.display = 'block';
+                geminiLoader.style.display = 'block';
+                geminiOutput.innerHTML = ''; // Clear previous results
+                addToMessageBtn.style.display = 'none';
+
+                try {
+                    let chatHistory = [];
+                    chatHistory.push({ role: "user", parts: [{ text: `Generate architectural project ideas, material suggestions, and key considerations for a project described as: "${prompt}". Provide the output in a structured format, possibly with bullet points or distinct paragraphs for each section. Focus on practical and innovative solutions. The response should be in HTML format, using h4 for titles and ul/li for lists.` }] });
+                    const payload = { contents: chatHistory };
+                    const apiKey = ""; // Canvas will automatically provide this
+                    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        geminiOutput.innerHTML = text;
+                        addToMessageBtn.style.display = 'block';
+                    } else {
+                        geminiOutput.innerHTML = '<p class="text-red-500">Could not generate ideas. Please try again.</p>';
+                    }
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    geminiOutput.innerHTML = '<p class="text-red-500">An error occurred while generating ideas. Please try again later.</p>';
+                } finally {
+                    geminiLoader.style.display = 'none';
                 }
             });
-            if (!hasItems) { alert(quoteLang === 'es' ? 'Por favor, selecciona al menos un item.' : 'Please select at least one item.'); return; }
-            mensaje += `%0A${quoteLang === 'es' ? 'Total' : 'Total'}: $${total.toFixed(2)} USD`;
-            window.open(`https://wa.me/19295040773?text=${encodeURIComponent(mensaje)}`, '_blank');
-        };
-    }
-    if (openCotizadorBtn) openCotizadorBtn.onclick = () => cotizadorModal.classList.add('active');
-    if (closeCotizadorBtn) closeCotizadorBtn.onclick = () => cotizadorModal.classList.remove('active');
-    if (toggleQuoteLangBtn) {
-        toggleQuoteLangBtn.onclick = () => {
-             cotizadorContent.classList.toggle('es');
-             cotizadorContent.classList.toggle('en');
-        }
-    }
 
-    /* ===== RADIO PLAYER ===== */
-    const stations = [
-        { name: 'SomaFM – Groove Salad', url: 'https://ice1.somafm.com/groovesalad-128-mp3' },
-        { name: 'SomaFM – Lush', url: 'https://ice2.somafm.com/lush-128-mp3' },
-        { name: 'Radio Paradise – Main Mix', url: 'https://stream.radioparadise.com/mp3-128' },
-        { name: 'SomaFM – Drone Zone', url: 'https://ice3.somafm.com/dronezone-128-mp3' },
-        { name: 'SomaFM – Indie Pop', url: 'https://ice2.somafm.com/indiepop-128-mp3' },
-        { name: 'SomaFM – Secret Agent', url: 'https://ice1.somafm.com/secretagent-128-mp3' },
-    ];
-    let currentStation = 0;
-    const radioBtnIcon = document.getElementById('radioBtnIcon');
-    const radioModal = document.getElementById('radioModal');
-    const stationNameEl = document.getElementById('stationName');
-    const radioAudio = document.getElementById('radioAudio');
-    const btnCloseRadio = document.getElementById('radioClose');
-    const btnMinimizeRadio = document.getElementById('radioMinimize');
-    const btnPrev = document.getElementById('radioPrev');
-    const btnPlay = document.getElementById('radioPlay');
-    const btnNext = document.getElementById('radioNext');
-    const btnMute = document.getElementById('radioMute');
-    const volSlider = document.getElementById('radioVolume');
-
-    function loadStation(idx) {
-        currentStation = idx;
-        stationNameEl.textContent = stations[idx].name;
-        radioAudio.src = stations[idx].url;
-        radioAudio.load();
-        radioAudio.play().catch(e => console.error("Radio play failed:", e));
-    }
-
-    function updatePlayBtn() {
-        btnPlay.innerHTML = radioAudio.paused ? '<i data-lucide="play" width="20"></i>' : '<i data-lucide="pause" width="20"></i>';
-        btnPlay.classList.toggle('active', !radioAudio.paused);
-        lucide.createIcons();
-    }
-    
-    function updateMuteBtn() {
-        btnMute.innerHTML = radioAudio.muted || radioAudio.volume === 0 ? '<i data-lucide="volume-x" width="20"></i>' : '<i data-lucide="volume-2" width="20"></i>';
-        lucide.createIcons();
-    }
-    
-    if(radioBtnIcon) {
-        radioBtnIcon.onclick = () => {
-            radioModal.classList.add('visible');
-            if (!radioAudio.src) {
-                 loadStation(currentStation);
-            }
-        };
-    }
-    if(btnCloseRadio) btnCloseRadio.onclick = () => radioModal.classList.remove('visible');
-    if(btnMinimizeRadio) {
-        btnMinimizeRadio.onclick = () => {
-            radioModal.classList.toggle('minimized');
-            const icon = radioModal.classList.contains('minimized') ? 'chevrons-up-down' : 'chevrons-down-up';
-            btnMinimizeRadio.innerHTML = `<i data-lucide="${icon}" width="18"></i>`;
-            lucide.createIcons();
-        };
-    }
-    if(btnPlay) btnPlay.onclick = () => radioAudio.paused ? radioAudio.play() : radioAudio.pause();
-    if(radioAudio){ radioAudio.onplay = radioAudio.onpause = updatePlayBtn; }
-    if(btnPrev) btnPrev.onclick = () => loadStation((currentStation - 1 + stations.length) % stations.length);
-    if(btnNext) btnNext.onclick = () => loadStation((currentStation + 1) % stations.length);
-    if(btnMute) btnMute.onclick = () => { radioAudio.muted = !radioAudio.muted; updateMuteBtn(); };
-    if(volSlider) volSlider.oninput = () => {
-        radioAudio.volume = volSlider.value;
-        radioAudio.muted = volSlider.value == 0;
-        updateMuteBtn();
-    };
-    if (radioAudio) radioAudio.onvolumechange = updateMuteBtn;
-    
-    /* ===== LEGAL MODALS ===== */
-    const privacyModal = document.getElementById('privacyModal');
-    const termsModal = document.getElementById('termsModal');
-    const openPrivacyBtn = document.getElementById('openPrivacy');
-    const openTermsBtn = document.getElementById('openTerms');
-    const closeLegalModals = document.querySelectorAll('.close-legal-modal');
-
-    if(openPrivacyBtn) openPrivacyBtn.onclick = () => privacyModal.classList.add('active');
-    if(openTermsBtn) openTermsBtn.onclick = () => termsModal.classList.add('active');
-
-    closeLegalModals.forEach(btn => {
-        btn.onclick = () => {
-            privacyModal.classList.remove('active');
-            termsModal.classList.remove('active');
-        }
-    });
-
-    window.onclick = function(event) {
-        if (event.target == privacyModal) {
-            privacyModal.classList.remove('active');
-        }
-        if (event.target == termsModal) {
-            termsModal.classList.remove('active');
-        }
-    }
-
-
-    /* ===== INITIALIZE ===== */
-    const mobileMenuButton = document.getElementById('mobile-menu-button');
-    const mobileMenu = document.getElementById('mobile-menu');
-    if (mobileMenuButton && mobileMenu) {
-        const mobileLinks = mobileMenu.querySelectorAll('a');
-
-        mobileMenuButton.addEventListener('click', () => {
-            mobileMenu.classList.toggle('hidden');
-        });
-
-        mobileLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                mobileMenu.classList.add('hidden');
+            addToMessageBtn.addEventListener('click', () => {
+                const generatedText = geminiOutput.innerText;
+                if (generatedText) {
+                    contactMessageInput.value = (contactMessageInput.value ? contactMessageInput.value + '\n\n' : '') + 'Project Idea from Generator:\n' + generatedText;
+                    // Optional: Scroll to contact form or show a success message
+                    document.querySelector('#contact-form').scrollIntoView({ behavior: 'smooth' });
+                }
             });
-        });
-    }
 
-    translate();
-    cargarTablaCotizador();
-    if (volSlider) radioAudio.volume = volSlider.value;
-    updateMuteBtn();
-    updatePlayBtn();
-});
-</script>
+            // Initial translation application
+            applyTranslations();
+        });
+    </script>
 </body>
 </html>
