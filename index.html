@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GIRALDO AEC Solutions | Building Visions into Reality</title>
-    <meta name="description" content="GIRALDO AEC Solutions specializes in the coordination, fabrication, and integration of architectural systems for high-end projects in New York.">
+    <meta name="description" content="GIRALDO AEC Solutions specializes in the coordination, and fabrication of architectural systems for high-end projects in New York.">
     <meta name="keywords" content="façade systems NYC, architectural envelope contractor, metal and glass fabrication NYC, millwork and custom partitions, architectural detailing contractor, project management construction NY, shop drawings & RFI coordination, preconstruction services NYC, residential and commercial construction detailing">
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -12,6 +12,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Feather Icons for form validation message -->
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <style>
         /* Custom styles inspired by references */
         html {
@@ -23,7 +25,7 @@
             background-color: #ffffff;
             color: #929397;
             /* Hide overflow initially to prevent scrollbar during loading */
-            overflow: hidden;
+            overflow-x: hidden;
         }
         .hero-bg {
             /* Hero: 21.png - Abstract architectural facade */
@@ -43,31 +45,18 @@
             @apply bg-transparent text-white border border-white hover:bg-white hover:text-black;
         }
         .btn-dark {
-             /* Adjusted to a lighter gray background as per user request and reference image */
-             @apply bg-white/20 text-white hover:bg-white/30 disabled:bg-gray-400; /* Adjusted gray shade for visibility */
+             @apply bg-white/20 text-white hover:bg-white/30 disabled:bg-gray-400;
         }
         .btn-secondary {
             @apply border border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900;
         }
         .section-title {
-            /* Default size, overridden for specific sections if needed */
-            @apply text-4xl md:text-5xl font-bold text-gray-900 mb-4;
+            /* FONT-SIZE-CHANGE: Reduced section title size */
+            @apply text-3xl md:text-4xl font-bold text-gray-900 mb-4;
         }
         .section-subtitle {
-            /* Default size, overridden for specific sections if needed */
             @apply text-sm font-medium text-gray-500 uppercase tracking-widest mb-6;
         }
-        /* Language toggle buttons are now hidden */
-        /* #lang-toggle, #lang-toggle-mobile {
-            cursor: pointer;
-            font-weight: 500;
-            padding: 6px 10px;
-            border: 1px solid transparent;
-            border-radius: 6px;
-        }
-        #lang-toggle:hover, #lang-toggle-mobile:hover {
-            border-color: #e5e7eb;
-        } */
 
         /* General fade-in animation for most elements */
         .fade-in {
@@ -83,18 +72,18 @@
         /* Specific animation for large text words in About and Home sections */
         .animated-word {
             opacity: 0;
-            transform: translateX(-300px); /* Increased translateX for a more pronounced "far left" effect */
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out; /* Adjusted for smoother glide */
-            position: absolute; /* Allows overlap */
-            mix-blend-mode: difference; /* Inverts color when overlapping */
+            transform: translateX(-300px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+            position: absolute;
+            mix-blend-mode: difference;
             will-change: transform, opacity;
-            white-space: nowrap; /* Prevents words from breaking into multiple lines */
-            line-height: 0.9; /* Adjust line height for tighter packing */
-            color: black; /* Default color for mix-blend-mode to work effectively */
+            white-space: nowrap;
+            line-height: 0.9;
+            color: black;
         }
         .animated-word.is-visible {
             opacity: 1;
-            transform: translateX(0); /* Moves to original position */
+            transform: translateX(0);
         }
 
         /* Staggered delays for words */
@@ -108,20 +97,17 @@
         /* Specific styles for the main title in the Home section */
         .hero-title-word {
             opacity: 0;
-            transform: translateX(-50px); /* Changed from translateY to translateX */
+            transform: translateX(-50px);
             transition: opacity 0.8s ease-out, transform 0.8s ease-out;
-            display: block; /* Each word on its own line */
-            line-height: 1.1; /* Adjust line height for visual appeal */
+            display: block;
+            line-height: 1.1;
         }
         .hero-title-word.is-visible {
             opacity: 1;
             transform: translateX(0);
         }
-        /* Adjusted delays for the new combined "into Reality" line */
         .hero-title-word:nth-child(1) { transition-delay: 0.2s; }
         .hero-title-word:nth-child(2) { transition-delay: 0.4s; }
-        .hero-title-word:nth-child(3) { transition-delay: 0.6s; }
-
 
         /* Project card animations */
         .project-card .details {
@@ -157,6 +143,9 @@
         }
 
         /* Loader styling */
+        .loader-overlay {
+            transition: opacity 0.5s ease-out;
+        }
         .loader {
             border: 4px solid #f3f3f3;
             border-top: 4px solid #B08D57;
@@ -164,11 +153,6 @@
             width: 40px;
             height: 40px;
             animation: spin 1s linear infinite;
-            position: fixed; /* Fixed position to cover the entire screen */
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            z-index: 9999; /* High z-index to be on top of everything */
         }
         @keyframes spin {
             0% { transform: rotate(0deg); }
@@ -186,65 +170,87 @@
             transform: translateX(0);
         }
         /* Staggered delays for project cards */
-        .project-card:nth-child(1) { transition-delay: 0s; }
-        .project-card:nth-child(2) { transition-delay: 0.1s; }
-        .project-card:nth-child(3) { transition-delay: 0.2s; }
+        .project-card:nth-child(1), .service-card:nth-child(1) { transition-delay: 0s; }
+        .project-card:nth-child(2), .service-card:nth-child(2) { transition-delay: 0.1s; }
+        .project-card:nth-child(3), .service-card:nth-child(3) { transition-delay: 0.2s; }
         .project-card:nth-child(4) { transition-delay: 0.3s; }
         .project-card:nth-child(5) { transition-delay: 0.4s; }
         .project-card:nth-child(6) { transition-delay: 0.5s; }
+        .project-card:nth-child(7) { transition-delay: 0s; }
+        .project-card:nth-child(8) { transition-delay: 0.1s; }
+        .project-card:nth-child(9) { transition-delay: 0.2s; }
+        .project-card:nth-child(10) { transition-delay: 0.3s; }
+        .project-card:nth-child(11) { transition-delay: 0.4s; }
+        .project-card:nth-child(12) { transition-delay: 0.5s; }
+        .project-card:nth-child(13) { transition-delay: 0s; }
+
 
         /* Custom styling for partner logos */
         .partner-logo {
-            width: 160px; /* Increased size for better visibility */
-            height: 85px; /* Proportional height */
-            object-fit: contain; /* Ensures the image fits within the bounds without distortion */
-            flex-shrink: 0; /* Prevents logos from shrinking */
-            margin: 0 40px; /* Add more spacing between logos */
-            filter: grayscale(100%) brightness(1.5); /* Make logos grayscale and slightly brighter */
-            opacity: 0.7; /* Slightly transparent */
+            width: 160px;
+            height: 85px;
+            object-fit: contain;
+            flex-shrink: 0;
+            margin: 0 40px;
+            filter: grayscale(100%) brightness(1.5);
+            opacity: 0.7;
             transition: opacity 0.3s ease-in-out, filter 0.3s ease-in-out;
         }
         .partner-logo:hover {
             opacity: 1;
-            filter: grayscale(0%) brightness(1); /* Full color on hover */
+            filter: grayscale(0%) brightness(1);
         }
 
         /* Carousel specific styles */
         .partners-carousel-container {
             position: relative;
-            max-width: 100%;
-            overflow: hidden; /* Hide scrollbar but allow content to be scrolled by JS */
-            padding: 10px 0; /* Reduced padding for visual spacing */
-            cursor: grab; /* Indicate it's draggable */
-            margin-top: 40px; /* Added margin-top to push logos down from text */
+            width: 100%;
+            overflow: hidden;
+            padding: 20px 0;
+            margin-top: 40px;
+        }
+        .partners-carousel-container::before,
+        .partners-carousel-container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100px;
+            z-index: 2;
+            pointer-events: none;
+        }
+        .partners-carousel-container::before {
+            left: 0;
+            background: linear-gradient(to right, #f9fafb, transparent);
+        }
+        .partners-carousel-container::after {
+            right: 0;
+            background: linear-gradient(to left, #f9fafb, transparent);
         }
         .partners-carousel {
             display: flex;
-            flex-wrap: nowrap; /* Keep all logos in one line */
-            overflow-x: scroll; /* Enable horizontal scrolling */
-            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
-            scroll-behavior: smooth; /* Smooth scroll when JS or buttons trigger it */
-            scrollbar-width: none; /* Hide scrollbar for Firefox */
-            -ms-overflow-style: none;  /* Hide scrollbar for IE and Edge */
-            padding-bottom: 10px; /* Add some padding to prevent content from touching the bottom edge */
+            flex-wrap: nowrap;
+            width: max-content;
+            animation: scroll 60s linear infinite;
         }
-        .partners-carousel::-webkit-scrollbar {
-            display: none; /* Hide scrollbar for Chrome, Safari, Opera */
+        .partners-carousel:hover {
+            animation-play-state: paused;
+        }
+        @keyframes scroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
         }
 
         /* Responsive video container */
         .video-container {
             position: relative;
-            /* Adjusted max-width to make the video smaller and centered */
-            max-width: 800px; /* Adjust as needed for desired size */
-            margin-left: auto; /* Center the video */
-            margin-right: auto; /* Center the video */
-            padding-bottom: 450px; /* Maintain 16:9 aspect ratio for 800px width (800 * 9 / 16 = 450) */
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            padding-bottom: 450px;
             height: 0;
             overflow: hidden;
-            /* Removed background-color: black; */
         }
-
         .video-container iframe {
             position: absolute;
             top: 0;
@@ -253,38 +259,9 @@
             height: 100%;
         }
 
-        /* Adjusted font sizes and positioning for About section words */
-        .about-word-size-lg {
-            @apply text-5xl md:text-6xl lg:text-7xl; /* Reduced sizes */
-        }
-        .about-word-size-xl {
-            @apply text-6xl md:text-7xl lg:text-8xl; /* Reduced sizes */
-        }
-        .about-word-position-who {
-            top: 10%;
-            left: 10%; /* Reverted left position */
-        }
-        .about-word-position-we-are {
-            top: 25%;
-            left: 10%; /* Reverted left position */
-        }
-        .about-word-position-clarity {
-            top: 45%;
-            left: 0%; /* Adjusted left position */
-        }
-        .about-word-position-through {
-            top: 65%;
-            left: 10%; /* Reverted left position */
-        }
-        .about-word-position-construction {
-            top: 85%;
-            left: 0%; /* Adjusted left position */
-        }
-
         /* Adjusted paragraph text size in About section */
-        .about-text-size {
-            @apply text-sm md:text-base; /* Changed from text-base md:text-lg to text-sm md:text-base */
-        }
+        .about-text-size { @apply text-sm md:text-base; }
+
     </style>
 </head>
 <body class="antialiased">
@@ -294,16 +271,16 @@
     </div>
 
     <!-- Header Section -->
-    <header id="header" class="bg-white/80 backdrop-blur-lg fixed w-full top-0 z-50 transition-all duration-300">
+    <header id="header" class="bg-white/50 backdrop-blur-md fixed w-full top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
             <a href="#home" class="text-2xl font-light text-gray-900 tracking-wider">GIRALDO <span class="font-bold">AEC</span></a>
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_about">About</a>
+                <a href="#materials" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_materials">Materials</a>
                 <a href="#services" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_services">Services</a>
                 <a href="#projects" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_projects">Projects</a>
                 <a href="#partners" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_partners">Partners</a>
                 <a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_contact">Contact</a>
-                <!-- Language toggle button removed -->
             </nav>
             <button id="mobile-menu-button" class="md:hidden">
                 <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
@@ -312,64 +289,75 @@
         <!-- Mobile Menu -->
         <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
             <a href="#about" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_about_mobile">About</a>
+            <a href="#materials" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_materials_mobile">Materials</a>
             <a href="#services" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_services_mobile">Services</a>
             <a href="#projects" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_projects_mobile">Projects</a>
             <a href="#partners" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_partners_mobile">Partners</a>
             <a href="#contact" class="block py-3 px-6 text-gray-700 hover:bg-gray-50" data-key="nav_contact_mobile">Contact</a>
-            <!-- Language toggle button removed from mobile menu -->
         </div>
     </header>
 
     <main>
         <!-- Home Section -->
         <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white">
-            <div class="max-w-5xl px-6 pt-20"> <!-- Added padding-top to shift content down -->
-                <!-- Main title with staggered animations -->
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold tracking-tight mb-6 relative">
-                    <span class="hero-title-word font-light" data-key="home_headline_building">Building</span>
-                    <span class="hero-title-word font-normal" data-key="home_headline_visions">Visions</span>
-                    <!-- Combined "into" and "Reality" into a single span for inline display -->
-                    <span class="hero-title-word font-bold inline" data-key="home_headline_into_reality">into Reality</span> 
+            <div class="max-w-5xl px-6 pt-20">
+                <h1 class="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight mb-6 relative">
+                    <span class="hero-title-word" data-key="home_headline_line1">Building Visions</span>
+                    <span class="hero-title-word" data-key="home_headline_line2">into Reality</span>
                 </h1>
-                <p class="text-lg md:text-xl font-light text-gray-200 mb-10 max-w-3xl mx-auto mt-8" data-key="home_subheadline">
-                    Architectural systems designed, detailed, and delivered with excellence.
+                <p class="text-base md:text-lg font-light text-gray-200 mb-10 max-w-3xl mx-auto mt-8 fade-in" data-key="home_subheadline">
+                    Architectural Glass, metal, Wood, Composite panels, Steel.
                 </p>
-                <a href="#contact" class="btn btn-dark text-white mt-8" data-key="home_cta">Let’s bring your vision to life → Request a Consultation</a>
+                <a href="#contact" class="btn btn-primary mt-8 fade-in" data-key="home_cta">Contact us:</a>
             </div>
         </section>
 
         <!-- About Section -->
         <section id="about" class="py-28 md:py-40 bg-white">
             <div class="container mx-auto px-6">
-                <div class="grid md:grid-cols-12 gap-12 items-center">
-                    <div class="md:col-span-5 relative h-[400px] md:h-[500px] lg:h-[700px] flex items-center justify-start">
-                        <!-- Animated words for "Who We Are." -->
-                        <span class="animated-word text-6xl md:text-7xl lg:text-8xl font-black text-gray-800" style="top: 10%; left: 10%;" data-key="about_word_who">Who</span>
-                        <span class="animated-word text-6xl md:text-7xl lg:text-8xl font-black text-gray-800" style="top: 25%; left: 10%;" data-key="about_word_we_are">We Are.</span>
-
-                        <!-- Animated words for "Clarity Through Construction" -->
-                        <span class="animated-word text-7xl md:text-8xl lg:text-9xl font-light text-gray-600" style="top: 45%; left: 0%;" data-key="about_word_clarity">Clarity</span>
-                        <span class="animated-word text-7xl md:text-8xl lg:text-9xl font-extrabold text-gray-700" style="top: 65%; left: 10%;" data-key="about_word_through">Through</span>
-                        <span class="animated-word text-7xl md:text-8xl lg:text-9xl font-light text-gray-600" style="top: 85%; left: 0%;" data-key="about_word_construction">Construction</span>
-                    </div>
-                    <div class="md:col-span-7 text-gray-600 leading-relaxed space-y-6 fade-in">
-                        <p class="text-justify about-text-size" data-key="about_p1">GIRALDO AEC Solutions is a New York-based company specializing in the coordination, fabrication, and integration of architectural systems across commercial, residential, and institutional environments.</p>
-                        <p class="text-justify about-text-size" data-key="about_p2">We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.</p>
+                <div class="max-w-4xl mx-auto text-center">
+                    <h2 class="text-5xl md:text-6xl font-black text-gray-800 mb-12 fade-in" data-key="about_title">Who We Are.</h2>
+                    <div class="text-gray-600 leading-relaxed fade-in text-left">
+                        <p class="text-justify about-text-size" data-key="about_p1">GIRALDO AEC Solutions is a New York-based company specializing in the coordination, and fabrication of architectural systems across commercial, residential, and institutional environments. We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.</p>
                     </div>
                 </div>
-                   <div class="mt-28 md:mt-32 text-center max-w-4xl mx-auto fade-in">
-                    <p class="text-2xl md:text-3xl font-medium text-gray-800 italic" data-key="about_philosophy">“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”</p>
-                    <p class="mt-4 text-gray-500" data-key="about_philosophy_tag">— Philosophy</p>
+                <div class="mt-28 md:mt-32 text-center max-w-4xl mx-auto fade-in">
+                    <p class="text-xl md:text-2xl font-medium text-gray-800 italic" data-key="about_philosophy">“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Materials Section -->
+        <section id="materials" class="py-28 bg-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="fade-in">
+                    <h3 class="section-subtitle" data-key="materials_subtitle">Our Expertise</h3>
+                    <h2 class="section-title" data-key="materials_title">Core Materials</h2>
+                </div>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8 mt-20 max-w-6xl mx-auto">
+                    <div class="text-center p-6 bg-white rounded-lg shadow-md fade-in">
+                        <h4 class="text-xl font-semibold text-gray-800" data-key="material_glass">Architectural Glass</h4>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-lg shadow-md fade-in">
+                        <h4 class="text-xl font-semibold text-gray-800" data-key="material_metal">Metal</h4>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-lg shadow-md fade-in">
+                        <h4 class="text-xl font-semibold text-gray-800" data-key="material_wood">Wood</h4>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-lg shadow-md fade-in">
+                        <h4 class="text-xl font-semibold text-gray-800" data-key="material_composite">Composite Panels</h4>
+                    </div>
+                    <div class="text-center p-6 bg-white rounded-lg shadow-md fade-in">
+                        <h4 class="text-xl font-semibold text-gray-800" data-key="material_steel">Steel</h4>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Video Section -->
-        <section id="video-section" class="py-16 md:py-24 bg-white"> <!-- Changed background to white -->
+        <section id="video-section" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="video-container rounded-lg shadow-xl">
-                    <!-- YouTube video embed -->
-                    <!-- Updated video source and parameters -->
                     <iframe src="https://www.youtube.com/embed/_t_C_gpLjE8?controls=1&autoplay=1&mute=1&loop=1&playlist=_t_C_gpLjE8&start=2641"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -386,41 +374,31 @@
                     <h2 class="section-title" data-key="services_title">A System for Success</h2>
                     <p class="max-w-3xl mx-auto mt-6 text-lg text-gray-600" data-key="services_p">Every project is a system. We help you align performance, design, and execution through the following service categories:</p>
                 </div>
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20 text-left">
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/01.png');">
+                <div class="grid md:grid-cols-1 lg:grid-cols-3 gap-8 mt-20 max-w-7xl mx-auto text-left">
+                    <div class="service-card slide-in-left text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/01.png');">
                         <div class="service-card-content">
                             <h4 class="text-2xl font-bold mb-2" data-key="service1_title">Façade & Building Envelope</h4>
-                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service1_li1">Curtain walls, structural glass</li><li data-key="service1_li2">Architectural metals & panels</li><li data-key="service1_li3">Anchoring & waterproofing</li></ul>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200">
+                                <li data-key="service1_li1">Curtain walls, structural glass</li>
+                                <li data-key="service1_li2">Architectural metals & panels</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/28.png');">
+                    <div class="service-card slide-in-left text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/28.png');">
                         <div class="service-card-content">
                             <h4 class="text-2xl font-bold mb-2" data-key="service2_title">Interior Architectural Systems</h4>
-                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service2_li1">Glass partitions, sliding panels</li><li data-key="service2_li2">Custom railings, movable walls</li><li data-key="service2_li3">Acoustic separations</li></ul>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200">
+                                <li data-key="service2_li1">Glass partitions, sliding panels</li>
+                                <li data-key="service2_li2">Custom railings, movable walls</li>
+                            </ul>
                         </div>
                     </div>
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/13.png');">
-                        <div class="service-card-content">
-                            <h4 class="text-2xl font-bold mb-2" data-key="service3_title">Fabrication & Millwork</h4>
-                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service3_li1">Wood, metal, stone integrations</li><li data-key="service3_li2">Finish carpentry, material transitions</li><li data-key="service3_li3">Bespoke assemblies</li></ul>
-                        </div>
-                    </div>
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/11.png');">
+                    <div class="service-card slide-in-left text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/11.png');">
                         <div class="service-card-content">
                             <h4 class="text-2xl font-bold mb-2" data-key="service4_title">Preconstruction & Support</h4>
-                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service4_li1">Budget estimating, scope dev</li><li data-key="service4_li2">Shop drawings, submittals, RFIs</li><li data-key="service4_li3">Value engineering</li></ul>
-                        </div>
-                    </div>
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/02.png');">
-                        <div class="service-card-content">
-                            <h4 class="text-2xl font-bold mb-2" data-key="service5_title">Project Management</h4>
-                            <ul class="list-disc list-inside space-y-1 text-gray-200"><li data-key="service5_li1">On-site coordination</li><li data-key="service5_li2">Fabricator alignment, logistics</li><li data-key="service5_li3">Field adjustments</li></ul>
-                        </div>
-                    </div>
-                    <div class="service-card rounded-md fade-in text-white flex flex-col justify-end p-8 h-80" style="background-image: url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/29.png');">
-                        <div class="service-card-content">
-                            <h4 class="text-2xl font-bold mb-2" data-key="service6_title">Optional Services</h4>
-                            <p class="text-gray-200" data-key="service6_p">Full material sourcing, prototyping coordination, and installation advisement available on request.</p>
+                            <ul class="list-disc list-inside space-y-1 text-gray-200">
+                                <li data-key="service4_li2">Shop drawings, submittals, RFIs</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -428,88 +406,184 @@
         </section>
 
         <!-- Projects Section -->
-        <section id="projects" class="py-28 md:py-47 bg-white">
+        <section id="projects" class="py-28 md:py-40 bg-white">
             <div class="container mx-auto px-6">
                 <div class="text-center fade-in">
                     <h3 class="section-subtitle" data-key="projects_subtitle">Selected Work</h3>
                     <h2 class="section-title" data-key="projects_title">Commitment to Technical Clarity</h2>
                 </div>
                 <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20">
+                    <!-- Waterline Square -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/15.png" alt="Modern and elegant lobby with spectacular lighting" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+1';">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=Waterline+Square" alt="Waterline Square Project" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project1_title">717 Fifth Avenue, NYC</h4>
-                                    <p class="text-gray-200" data-key="project1_desc">Lobby renovation with integrated lighting and custom architectural metals.</p>
+                                    <h4 class="text-2xl font-bold text-white">Waterline Square</h4>
+                                    <p class="text-gray-200">Custom architectural systems for a modern residential complex.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+
+                    <!-- ZUMA NYC -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/05.png" alt="Close-up of an ornate historic facade" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+2';">
-                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=ZUMA+NYC" alt="ZUMA NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project2_title">The Jane Hotel, NYC</h4>
-                                    <p class="text-gray-200" data-key="project2_desc">Historical restoration with façade retrofit and custom glass systems.</p>
+                                    <h4 class="text-2xl font-bold text-white">ZUMA NYC</h4>
+                                    <p class="text-gray-200">High-end interior metal and glass work for a luxury restaurant.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+
+                    <!-- Jacob and CO -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/25.png" alt="Waterline Square building" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+3';">
-                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=Jacob+and+CO" alt="Jacob and CO Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project3_title">Waterline Square, NYC</h4>
-                                    <p class="text-gray-200" data-key="project3_desc">Envelope systems installation coordination in a high-density site.</p>
+                                    <h4 class="text-2xl font-bold text-white">Jacob & Co.</h4>
+                                    <p class="text-gray-200">Bespoke facade and storefront for a luxury jewelry brand.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+
+                    <!-- The Bryant NYC -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/09.png" alt="Grand Central - East Side Access interior" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+4';">
-                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=The+Bryant" alt="The Bryant NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project4_title">Grand Central – East Side Access</h4>
-                                    <p class="text-gray-200" data-key="project4_desc">Material integration of custom stone and glass systems for transit project.</p>
+                                    <h4 class="text-2xl font-bold text-white">The Bryant NYC</h4>
+                                    <p class="text-gray-200">Architectural concrete panels and window system integration.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+
+                    <!-- 112 West 25Th Street -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/07.png" alt="Metal facade detail" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+5';">
-                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=112+W+25th" alt="112 West 25Th Street Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project5_title">Private Residence, Hamptons</h4>
-                                    <p class="text-gray-200" data-key="project5_desc">Custom metal paneling and window system integration.</p>
+                                    <h4 class="text-2xl font-bold text-white">112 West 25th Street</h4>
+                                    <p class="text-gray-200">Lobby and facade renovation for a commercial office building.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
+
+                    <!-- 200 E 59th Street -->
                     <a href="#" class="group block project-card slide-in-left">
                         <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
-                            <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/16.png" alt="Luxury interior with custom millwork" class="w-full h-full object-cover transition-transform duration-300"
-                                 onerror="this.onerror=null;this.src='https://placehold.co/800x600/64748b/e2e8f0?text=Project+6';">
-                             <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=200+E+59th" alt="200 E 59th Street Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
                                 <div>
-                                    <h4 class="text-2xl font-bold text-white" data-key="project6_title">Corporate HQ, Midtown</h4>
-                                    <p class="text-2xl font-bold text-white" data-key="project6_desc">Bespoke interior millwork and integrated glass partitions.</p>
+                                    <h4 class="text-2xl font-bold text-white">200 E 59th Street</h4>
+                                    <p class="text-gray-200">Exterior envelope and glazing systems for a residential tower.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 210 Bowery Street -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=210+Bowery" alt="210 Bowery Street Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">210 Bowery</h4>
+                                    <p class="text-gray-200">Custom storefront and metal panel system for a new development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 533 W 57 STREET NYC -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=533+W+57th" alt="533 W 57 STREET NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">533 W 57th Street</h4>
+                                    <p class="text-gray-200">Complex curtain wall and building envelope coordination.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Hotel Chelsea NYC -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=Hotel+Chelsea" alt="Hotel Chelsea NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">Hotel Chelsea</h4>
+                                    <p class="text-gray-200">Historic restoration of windows and architectural metalwork.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- Bowery Hotel NYC -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=Bowery+Hotel" alt="Bowery Hotel NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">Bowery Hotel</h4>
+                                    <p class="text-gray-200">Custom interior systems and decorative metal fabrication.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 1133 Broadway NYC -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=1133+Broadway" alt="1133 Broadway NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">1133 Broadway</h4>
+                                    <p class="text-gray-200">Facade restoration and lobby modernization.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- WATCHES OF SWITZERLAND SOHO NYC -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=WoS+SoHo" alt="WATCHES OF SWITZERLAND SOHO NYC Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">Watches of Switzerland SoHo</h4>
+                                    <p class="text-gray-200">Luxury retail storefront and interior architectural elements.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+
+                    <!-- 108 Leonard -->
+                    <a href="#" class="group block project-card slide-in-left">
+                        <div class="overflow-hidden rounded-md relative aspect-w-4 aspect-h-3">
+                            <img src="https://placehold.co/800x600/64748b/e2e8f0?text=108+Leonard" alt="108 Leonard Project" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
+                                <div>
+                                    <h4 class="text-2xl font-bold text-white">108 Leonard</h4>
+                                    <p class="text-gray-200">Landmark building conversion with custom window systems.</p>
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
                 <div class="text-center mt-20 space-x-4 fade-in">
-                    <button class="btn btn-dark" data-key="projects_cta1">View Project Gallery</button>
+                    <button class="btn btn-dark text-gray-800 border border-gray-800 hover:bg-gray-800 hover:text-white" data-key="projects_cta1">View Project Gallery</button>
                     <button class="btn btn-secondary" data-key="projects_cta2">Request Case Study PDF</button>
                 </div>
             </div>
@@ -522,34 +596,9 @@
                     <h3 class="section-subtitle" data-key="partners_subtitle">Trusted By The Best</h3>
                     <h2 class="section-title" data-key="partners_title">Our Partners</h2>
                 </div>
-                <div class="partners-carousel-container relative mx-auto max-w-full mt-40">
+                <div class="partners-carousel-container">
                     <div id="partners-carousel" class="partners-carousel">
-                        <!-- Duplicated logos for a longer carousel -->
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo1.png" alt="HOK Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo2.png" alt="PerkinsWill Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo3.png" alt="TPG Architecture Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo4.png" alt="Hirsch Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo5.png" alt="GID Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo6.png" alt="Xcollaborative Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo7.png" alt="Ensler Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo8.png" alt="Urban Wood Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo9.png" alt="Stone Frame Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo10.png" alt="Core Struct Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo11.png" alt="Alpha Build Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo12.png" alt="Innovo Panel Logo" class="mx-auto partner-logo">
-                        <!-- Duplicates to ensure continuous scrolling -->
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo1.png" alt="HOK Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo2.png" alt="PerkinsWill Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo3.png" alt="TPG Architecture Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo4.png" alt="Hirsch Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo5.png" alt="GID Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo6.png" alt="Xcollaborative Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo7.png" alt="Ensler Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo8.png" alt="Urban Wood Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo9.png" alt="Stone Frame Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo10.png" alt="Core Struct Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo11.png" alt="Alpha Build Logo" class="mx-auto partner-logo">
-                        <img src="https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo12.png" alt="Innovo Panel Logo" class="mx-auto partner-logo">
+                        <!-- Logos are duplicated in JS to ensure a seamless loop -->
                     </div>
                 </div>
             </div>
@@ -577,20 +626,20 @@
         <!-- Contact Section -->
         <section id="contact" class="py-28 md:py-40 bg-gray-50">
             <div class="container mx-auto px-6">
-                <!-- Contact Form and Info -->
                 <div class="text-center fade-in">
                     <h3 class="section-subtitle" data-key="contact_subtitle">Contact Us</h3>
                     <h2 class="section-title" data-key="contact_title">Let's Build Something Exceptional</h2>
                 </div>
                 <div class="grid md:grid-cols-2 gap-16 mt-20">
-                    <form id="contact-form" action="#" method="POST" class="space-y-6 fade-in">
+                    <form id="contact-form" class="space-y-6 fade-in" novalidate>
                         <div class="grid sm:grid-cols-2 gap-6">
-                            <div><label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_name">Name</label><input type="text" id="name" name="name" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
+                            <div><label for="name" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_name">Name</label><input type="text" id="name" name="name" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
                             <div><label for="company" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_company">Company</label><input type="text" id="company" name="company" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
                         </div>
-                        <div><label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_email">Email</label><input type="email" id="email" name="email" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
-                        <div><label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_message">Message</label><textarea id="message" name="message" rows="5" class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></textarea></div>
-                        <div><button type="submit" class="w-full btn btn-dark" data-key="form_submit">Send Message</button></div>
+                        <div><label for="email" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_email">Email</label><input type="email" id="email" name="email" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></div>
+                        <div><label for="message" class="block text-sm font-medium text-gray-700 mb-1" data-key="form_message">Message</label><textarea id="message" name="message" rows="5" required class="block w-full px-4 py-3 border border-gray-300 rounded-md shadow-sm focus:ring-[#B08D57] focus:border-[#B08D57]"></textarea></div>
+                        <div><button type="submit" class="w-full btn btn-dark bg-gray-800 text-white hover:bg-gray-700" data-key="form_submit">Send Message</button></div>
+                        <div id="form-message" class="hidden mt-4 text-center"></div>
                     </form>
                     <div class="space-y-10 fade-in">
                         <div class="flex items-start">
@@ -619,14 +668,15 @@
                     <h4 class="text-lg font-semibold text-white">GIRALDO AEC Solutions</h4>
                     <p class="mt-2" data-key="footer_tagline">Precision. Partnership. Performance.</p>
                     <div class="mt-6 flex space-x-4">
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg></a>
-                        <a href="#" class="text-gray-400 hover:text-white transition-colors"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="LinkedIn"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg></a>
+                        <a href="#" class="text-gray-400 hover:text-white transition-colors" aria-label="Instagram"><svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.85s-.011 3.584-.069 4.85c-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07s-3.584-.012-4.85-.07c-3.252-.148-4.771-1.691-4.919-4.919-.058-1.265-.069-1.645-.069-4.85s.011-3.584.069-4.85c.149-3.225 1.664-4.771 4.919-4.919 1.266-.057 1.644-.07 4.85-.07zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948s.014 3.667.072 4.947c.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072s3.667-.014 4.947-.072c4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.947s-.014-3.667-.072-4.947c-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.689-.073-4.948-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.162 6.162 6.162 6.162-2.759 6.162-6.162-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4s1.791-4 4-4 4 1.79 4 4-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44 1.441-.645 1.441-1.44-.645-1.44-1.441-1.44z"/></svg></a>
                     </div>
                 </div>
                 <div>
                     <h4 class="text-lg font-semibold text-white" data-key="footer_links_title">Quick Links</h4>
                     <ul class="mt-4 space-y-2">
                         <li><a href="#about" class="hover:text-white transition-colors" data-key="footer_link_about">About Us</a></li>
+                        <li><a href="#materials" class="hover:text-white transition-colors" data-key="footer_link_materials">Materials</a></li>
                         <li><a href="#services" class="hover:text-white transition-colors" data-key="footer_link_services">Services</a></li>
                         <li><a href="#projects" class="hover:text-white transition-colors" data-key="footer_link_projects">Projects</a></li>
                         <li><a href="#partners" class="hover:text-white transition-colors" data-key="footer_link_partners">Partners</a></li>
@@ -651,256 +701,180 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Hide the loader once the DOM is fully loaded
+            // --- INITIAL SETUP ---
             const pageLoader = document.getElementById('page-loader');
             if (pageLoader) {
-                pageLoader.style.display = 'none';
-                document.body.style.overflow = 'auto'; // Re-enable scrolling
+                // Fade out the loader
+                pageLoader.style.opacity = '0';
+                setTimeout(() => {
+                    pageLoader.style.display = 'none';
+                }, 500); // Match transition duration
             }
 
-            // --- TRANSLATION DATA ---
-            // Removed Spanish translations as the site will be English only
+            // --- TRANSLATION DATA (English Only) ---
             const translations = {
                 en: {
-                    nav_about: "About", nav_services: "Services", nav_projects: "Projects", nav_partners: "Partners", nav_contact: "Contact",
-                    nav_about_mobile: "About", nav_services_mobile: "Services", nav_projects_mobile: "Projects", nav_partners_mobile: "Partners", nav_contact_mobile: "Contact",
-                    home_headline_building: "Building",
-                    home_headline_visions: "Visions",
-                    home_headline_into_reality: "into Reality", // Combined translation for "into Reality"
-                    home_subheadline: "Architectural systems designed, detailed, and delivered with excellence.",
-                    home_cta: "Let’s bring your vision to life → Request a Consultation",
-                    about_word_who: "Who",
-                    about_word_we_are: "We Are.",
-                    about_word_clarity: "Clarity",
-                    about_word_through: "Through",
-                    about_word_construction: "Construction",
-                    about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, fabrication, and integration of architectural systems across commercial, residential, and institutional environments.",
-                    about_p2: "We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
+                    nav_about: "About", nav_materials: "Materials", nav_services: "Services", nav_projects: "Projects", nav_partners: "Partners", nav_contact: "Contact",
+                    nav_about_mobile: "About", nav_materials_mobile: "Materials", nav_services_mobile: "Services", nav_projects_mobile: "Projects", nav_partners_mobile: "Partners", nav_contact_mobile: "Contact",
+                    home_headline_line1: "Building Visions",
+                    home_headline_line2: "into Reality",
+                    home_subheadline: "Architectural Glass, metal, Wood, Composite panels, Steel.",
+                    home_cta: "Contact us:",
+                    about_title: "Who We Are.",
+                    about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, and fabrication of architectural systems across commercial, residential, and institutional environments. We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
                     about_philosophy: "“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”",
-                    about_philosophy_tag: "— Philosophy",
-                    services_subtitle: "What We Offer",
-                    services_title: "A System for Success",
-                    services_p: "Every project is a system. We help you align performance, design, and execution through the following service categories:",
-                    service1_title: "Façade & Building Envelope",
-                    service1_li1: "Curtain walls, structural glass",
-                    service1_li2: "Architectural metals & panels",
-                    service1_li3: "Anchoring & waterproofing",
-                    service2_title: "Interior Architectural Systems",
-                    service2_li1: "Glass partitions, sliding panels",
-                    service2_li2: "Custom railings, movable walls",
-                    service2_li3: "Acoustic separations",
-                    service3_title: "Fabrication & Millwork",
-                    service3_li1: "Wood, metal, stone integrations",
-                    service3_li2: "Finish carpentry, material transitions",
-                    service3_li3: "Bespoke assemblies",
-                    service4_title: "Preconstruction & Support",
-                    service4_li1: "Budget estimating, scope dev",
-                    service4_li2: "Shop drawings, submittals, RFIs",
-                    service4_li3: "Value engineering",
-                    service5_title: "Project Management",
-                    service5_li1: "On-site coordination",
-                    service5_li2: "Fabricator alignment, logistics",
-                    service5_li3: "Field adjustments",
-                    service6_title: "Optional Services",
-                    service6_p: "Full material sourcing, prototyping coordination, and installation advisement available on request.",
-                    projects_subtitle: "Selected Work",
-                    projects_title: "Commitment to Technical Clarity",
-                    project1_title: "717 Fifth Avenue, NYC",
-                    project1_desc: "Lobby renovation with integrated lighting and custom architectural metals.",
-                    project2_title: "The Jane Hotel, NYC",
-                    project2_desc: "Historical restoration with façade retrofit and custom glass systems.",
-                    project3_title: "Waterline Square, NYC",
-                    project3_desc: "Envelope systems installation coordination in a high-density site.",
-                    project4_title: "Grand Central – East Side Access",
-                    project4_desc: "Material integration of custom stone and glass systems for transit project.",
-                    project5_title: "Private Residence, Hamptons",
-                    service5_desc: "Custom metal paneling and window system integration.",
-                    project6_title: "Corporate HQ, Midtown",
-                    project6_desc: "Bespoke interior millwork and integrated glass partitions.",
-                    partners_subtitle: "Trusted By The Best",
-                    partners_title: "Our Partners",
+                    materials_subtitle: "Our Expertise",
+                    materials_title: "Core Materials",
+                    material_glass: "Architectural Glass",
+                    material_metal: "Metal",
+                    material_wood: "Wood",
+                    material_composite: "Composite Panels",
+                    material_steel: "Steel",
+                    services_subtitle: "What We Offer", services_title: "A System for Success", services_p: "Every project is a system. We help you align performance, design, and execution through the following service categories:",
+                    service1_title: "Façade & Building Envelope", service1_li1: "Curtain walls, structural glass", service1_li2: "Architectural metals & panels",
+                    service2_title: "Interior Architectural Systems", service2_li1: "Glass partitions, sliding panels", service2_li2: "Custom railings, movable walls",
+                    service4_title: "Preconstruction & Support", service4_li2: "Shop drawings, submittals, RFIs",
+                    projects_subtitle: "Selected Work", projects_title: "Commitment to Technical Clarity",
+                    projects_cta1: "View Project Gallery", projects_cta2: "Request Case Study PDF",
+                    partners_subtitle: "Trusted By The Best", partners_title: "Our Partners",
                     testimonials_subtitle: "Testimonials",
-                    testimonial1_text: "\"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch.\"",
-                    testimonial1_author: "— Senior Architect, Manhattan Studio",
-                    testimonial2_text: "\"Smart, responsive, precise. Their coordination saved us weeks on site.\"",
-                    testimonial2_author: "— Project Manager, NYC Developer",
-                    contact_subtitle: "Contact Us",
-                    contact_title: "Let's Build Something Exceptional",
-                    form_name: "Name",
-                    form_company: "Company",
-                    form_email: "Email",
-                    form_message: "Message",
-                    form_submit: "Send Message",
-                    contact_email_title: "Email",
-                    contact_phone_title: "Phone",
-                    contact_location_title: "Location",
-                    footer_tagline: "Precision. Partnership. Performance.",
-                    footer_links_title: "Quick Links",
-                    footer_link_about: "About Us",
-                    footer_link_services: "Services",
-                    footer_link_projects: "Projects",
-                    footer_link_partners: "Partners",
-                    footer_link_contact: "Contact",
-                    footer_legal_title: "Legal & Certifications",
-                    footer_cert1: "OSHA 30 Certified",
-                    footer_cert2: "NYC WBE (pending)",
-                    footer_legal_privacy: "Privacy Policy",
-                    footer_legal_terms: "Terms of Use",
-                    footer_copyright: "&copy; 2024 GIRALDO AEC Solutions. All Rights Reserved."
+                    testimonial1_text: "\"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch.\"", testimonial1_author: "— Senior Architect, Manhattan Studio",
+                    testimonial2_text: "\"Smart, responsive, precise. Their coordination saved us weeks on site.\"", testimonial2_author: "— Project Manager, NYC Developer",
+                    contact_subtitle: "Contact Us", contact_title: "Let's Build Something Exceptional",
+                    form_name: "Name", form_company: "Company", form_email: "Email", form_message: "Message", form_submit: "Send Message",
+                    contact_email_title: "Email", contact_phone_title: "Phone", contact_location_title: "Location",
+                    footer_tagline: "Precision. Partnership. Performance.", footer_links_title: "Quick Links",
+                    footer_link_about: "About Us", footer_link_materials: "Materials", footer_link_services: "Services", footer_link_projects: "Projects", footer_link_partners: "Partners", footer_link_contact: "Contact",
+                    footer_legal_title: "Legal & Certifications", footer_cert1: "OSHA 30 Certified", footer_cert2: "NYC WBE (pending)",
+                    footer_legal_privacy: "Privacy Policy", footer_legal_terms: "Terms of Use",
+                    footer_copyright: "© 2024 GIRALDO AEC Solutions. All Rights Reserved."
                 }
             };
 
-            let currentLang = 'en'; // Default language set to English
-
             function applyTranslations() {
-                const elements = document.querySelectorAll('[data-key], [data-key-placeholder]');
-                elements.forEach(element => {
-                    const key = element.getAttribute('data-key') || element.getAttribute('data-key-placeholder');
-                    if (translations[currentLang][key]) {
+                document.querySelectorAll('[data-key]').forEach(element => {
+                    const key = element.getAttribute('data-key');
+                    if (translations.en[key]) {
                         if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.placeholder = translations[currentLang][key];
+                            element.placeholder = translations.en[key];
                         } else {
-                            element.textContent = translations[currentLang][key];
+                            element.innerHTML = translations.en[key]; // Use innerHTML to render copyright symbol
                         }
                     }
                 });
             }
 
-            // --- LANGUAGE TOGGLE ---
-            // Removed language toggle buttons from HTML, so no need for JS listeners
-            // const langToggle = document.getElementById('lang-toggle');
-            // const langToggleMobile = document.getElementById('lang-toggle-mobile');
-
-            // function toggleLanguage() {
-            //     currentLang = currentLang === 'en' ? 'es' : 'en';
-            //     applyTranslations();
-            // }
-
-            // if (langToggle) langToggle.addEventListener('click', toggleLanguage);
-            // if (langToggleMobile) langToggleMobile.addEventListener('click', toggleLanguage);
-
             // --- MOBILE MENU TOGGLE ---
             const mobileMenuButton = document.getElementById('mobile-menu-button');
             const mobileMenu = document.getElementById('mobile-menu');
-            const navLinksMobile = mobileMenu.querySelectorAll('a');
-
-            mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
             });
+            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-            navLinksMobile.forEach(link => {
-                link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden'); // Hide menu after clicking a link
-                });
-            });
-
-            // --- SCROLL ANIMATIONS (Fade-in and Slide for words) ---
-            const faders = document.querySelectorAll('.fade-in');
-            const animatedWords = document.querySelectorAll('.animated-word');
-            const projectCards = document.querySelectorAll('.project-card'); // Select project cards for slide-in
-            const heroTitleWords = document.querySelectorAll('.hero-title-word'); // Select hero title words for slide-in
-
-            const appearOptions = {
-                threshold: 0.2, /* When 20% of the element is visible */
-                rootMargin: "0px 0px -100px 0px" /* Start animation 100px before reaching the end of the viewport */
-            };
-
-            const appearOnScroll = new IntersectionObserver(function(entries, observer) {
+            // --- SCROLL ANIMATIONS ---
+            const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        // observer.unobserve(entry.target); // Uncomment if you want the animation to play only once
                     } else {
-                        // Optional: remove 'is-visible' if you want the animation to replay on scroll up
                         entry.target.classList.remove('is-visible');
                     }
                 });
-            }, appearOptions);
+            }, { threshold: 0.1 });
 
-            faders.forEach(fader => {
-                appearOnScroll.observe(fader);
-            });
-
-            animatedWords.forEach(word => {
-                appearOnScroll.observe(word);
-            });
-
-            projectCards.forEach(card => {
-                appearOnScroll.observe(card); // Observe project cards for slide-in
-            });
-
-            heroTitleWords.forEach(word => {
-                appearOnScroll.observe(word); // Observe hero title words for slide-in
+            document.querySelectorAll('.fade-in, .animated-word, .project-card, .hero-title-word, .service-card').forEach(el => {
+                observer.observe(el);
             });
 
             // --- HEADER SCROLL EFFECT ---
             const header = document.getElementById('header');
-            const heroSection = document.getElementById('home');
-            const headerHeight = header.offsetHeight;
-
-            function updateHeaderBackground() {
-                if (window.scrollY > heroSection.offsetHeight - headerHeight) {
-                    header.classList.remove('bg-white/80', 'backdrop-blur-lg');
-                    header.classList.add('bg-white', 'shadow-md');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    header.classList.add('shadow-lg');
                 } else {
-                    header.classList.add('bg-white/80', 'backdrop-blur-lg');
-                    header.classList.remove('bg-white', 'shadow-md');
+                    header.classList.remove('shadow-lg');
                 }
-            }
-
-            window.addEventListener('scroll', updateHeaderBackground);
-            updateHeaderBackground(); // Call on load to set initial state
+            });
 
             // --- SMOOTH SCROLLING ---
             document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 anchor.addEventListener('click', function (e) {
                     e.preventDefault();
                     const targetId = this.getAttribute('href');
-                    if (targetId && targetId !== '#') { // Ensure targetId is not just '#'
-                        document.querySelector(targetId).scrollIntoView({
-                            behavior: 'smooth'
-                        });
+                    if (targetId && targetId !== '#') {
+                        document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
 
-            // --- PARTNERS CAROUSEL FUNCTIONALITY ---
-            const partnersCarousel = document.getElementById('partners-carousel');
+            // --- PARTNERS CAROUSEL ---
+            const partners = [
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo1.png", alt: "HOK Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo2.png", alt: "PerkinsWill Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo3.png", alt: "TPG Architecture Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo4.png", alt: "Hirsch Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo5.png", alt: "GID Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo6.png", alt: "Xcollaborative Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo7.png", alt: "Ensler Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo8.png", alt: "Urban Wood Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo9.png", alt: "Stone Frame Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo10.png", alt: "Core Struct Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo11.png", alt: "Alpha Build Logo" },
+                { src: "https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/logo12.png", alt: "Innovo Panel Logo" }
+            ];
+            const carousel = document.getElementById('partners-carousel');
+            // Duplicate partners for a seamless loop
+            [...partners, ...partners].forEach(partner => {
+                const img = document.createElement('img');
+                img.src = partner.src;
+                img.alt = partner.alt;
+                img.className = 'partner-logo';
+                carousel.appendChild(img);
+            });
 
-            if (partnersCarousel) {
-                let scrollInterval;
-                const scrollSpeed = 2; // Adjust for faster/slower scroll on hover
+            // --- CONTACT FORM HANDLING ---
+            const contactForm = document.getElementById('contact-form');
+            const formMessage = document.getElementById('form-message');
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const message = document.getElementById('message').value;
 
-                partnersCarousel.parentElement.addEventListener('mousemove', (e) => {
-                    const containerRect = partnersCarousel.parentElement.getBoundingClientRect();
-                    const mouseX = e.clientX - containerRect.left; // Mouse position relative to container
+                if (!name || !email || !message) {
+                    showMessage('Please fill out all required fields.', 'error');
+                    return;
+                }
+                
+                // Simulate form submission
+                const submitButton = contactForm.querySelector('button[type="submit"]');
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
 
-                    const leftZone = containerRect.width * 0.15; // 15% from left
-                    const rightZone = containerRect.width * 0.85; // 15% from right
+                setTimeout(() => {
+                    showMessage('Thank you! Your message has been sent.', 'success');
+                    contactForm.reset();
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send Message';
+                }, 1500);
+            });
 
-                    // Clear any existing interval
-                    clearInterval(scrollInterval);
+            function showMessage(message, type) {
+                formMessage.textContent = message;
+                formMessage.className = `p-4 rounded-md text-sm flex items-center justify-center gap-2 ${type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+                
+                const icon = type === 'success' ? 'check-circle' : 'alert-triangle';
+                formMessage.innerHTML = `<i data-feather="${icon}" class="w-5 h-5"></i> ${message}`;
+                feather.replace(); // Re-render icons
 
-                    if (mouseX < leftZone) {
-                        // Scroll left
-                        scrollInterval = setInterval(() => {
-                            partnersCarousel.scrollLeft -= scrollSpeed * ((leftZone - mouseX) / leftZone);
-                        }, 10);
-                    } else if (mouseX > rightZone) {
-                        // Scroll right
-                        scrollInterval = setInterval(() => {
-                            partnersCarousel.scrollLeft += scrollSpeed * ((mouseX - rightZone) / (containerRect.width - rightZone));
-                        }, 10);
-                    }
-                });
-
-                partnersCarousel.parentElement.addEventListener('mouseleave', () => {
-                    clearInterval(scrollInterval);
-                });
+                formMessage.classList.remove('hidden');
+                setTimeout(() => formMessage.classList.add('hidden'), 5000);
             }
 
-            // Initial translation application
+            // --- FINAL INITIALIZATION ---
             applyTranslations();
+            feather.replace(); // Initial icon render
         });
     </script>
 </body>
