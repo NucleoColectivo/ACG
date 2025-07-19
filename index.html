@@ -23,16 +23,63 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #ffffff;
-            color: #929397;
-            /* Hide overflow initially to prevent scrollbar during loading */
+            color: #3d3d3d; /* gray-600 */
             overflow-x: hidden;
         }
-        .hero-bg {
-            /* Hero: 21.png - Abstract architectural facade */
-            background-image: linear-gradient(rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0.45)), url('https://raw.githubusercontent.com/NucleoColectivo/ACG/main/IMG/21.png');
+        #home {
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-slideshow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
+            opacity: 0;
+            /* Slower, smoother fade for a more professional feel */
+            transition: opacity 2s cubic-bezier(0.4, 0, 0.2, 1);
+            /* Updated animation for a majestic, slow zoom-out effect */
+            animation: kenburns-pro 30s ease-out infinite;
+        }
+        .hero-slide.active {
+            opacity: 1;
+        }
+        /* More professional Ken Burns effect */
+        @keyframes kenburns-pro {
+            0% {
+                transform: scale(1.1) translate(0, 0);
+            }
+            50% {
+                transform: scale(1.15) translate(-1%, 1%);
+            }
+            100% {
+                transform: scale(1.1) translate(0, 0);
+            }
+        }
+        #home::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.53);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         .nav-link-active {
             color: #B08D57;
@@ -51,7 +98,6 @@
             @apply border border-gray-300 text-gray-700 hover:bg-gray-900 hover:text-white hover:border-gray-900;
         }
         .section-title {
-            /* FONT-SIZE-CHANGE: Reduced section title size */
             @apply text-3xl md:text-4xl font-bold text-gray-900 mb-4;
         }
         .section-subtitle {
@@ -68,32 +114,7 @@
             opacity: 1;
             transform: translateY(0) scale(1);
         }
-
-        /* Specific animation for large text words in About and Home sections */
-        .animated-word {
-            opacity: 0;
-            transform: translateX(-300px);
-            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
-            position: absolute;
-            mix-blend-mode: difference;
-            will-change: transform, opacity;
-            white-space: nowrap;
-            line-height: 0.9;
-            color: black;
-        }
-        .animated-word.is-visible {
-            opacity: 1;
-            transform: translateX(0);
-        }
-
-        /* Staggered delays for words */
-        .animated-word:nth-child(1) { transition-delay: 0s; }
-        .animated-word:nth-child(2) { transition-delay: 0.1s; }
-        .animated-word:nth-child(3) { transition-delay: 0.2s; }
-        .animated-word:nth-child(4) { transition-delay: 0.3s; }
-        .animated-word:nth-child(5) { transition-delay: 0.4s; }
-        .animated-word:nth-child(6) { transition-delay: 0.5s; }
-
+        
         /* Specific styles for the main title in the Home section */
         .hero-title-word {
             opacity: 0;
@@ -247,17 +268,17 @@
     </div>
 
     <!-- Header Section -->
-    <header id="header" class="bg-white/50 backdrop-blur-md fixed w-full top-0 z-50 transition-all duration-300">
+    <header id="header" class="bg-black/30 backdrop-blur-lg fixed w-full top-0 z-50 transition-all duration-300">
         <div class="container mx-auto px-6 py-3 flex justify-between items-center">
-            <a href="#home" class="text-2xl font-light text-gray-900 tracking-wider">GIRALDO <span class="font-bold">AEC</span></a>
+            <a href="#home" class="text-2xl font-light text-white tracking-wider">GIRALDO <span class="font-bold">AEC</span></a>
             <nav class="hidden md:flex space-x-6 items-center">
-                <a href="#about" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_about">About</a>
-                <a href="#services" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_services">Services</a>
-                <a href="#projects" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_projects">Projects</a>
-                <a href="#contact" class="nav-link text-gray-600 hover:text-gray-900 transition-colors text-sm uppercase tracking-wider" data-key="nav_contact">Contact</a>
+                <a href="#about" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider" data-key="nav_about">About</a>
+                <a href="#services" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider" data-key="nav_services">Services</a>
+                <a href="#projects" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider" data-key="nav_projects">Projects</a>
+                <a href="#contact" class="nav-link text-gray-300 hover:text-white transition-colors text-sm uppercase tracking-wider" data-key="nav_contact">Contact</a>
             </nav>
             <button id="mobile-menu-button" class="md:hidden">
-                <svg class="w-6 h-6 text-gray-800" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
             </button>
         </div>
         <!-- Mobile Menu -->
@@ -271,16 +292,28 @@
 
     <main>
         <!-- Home Section -->
-        <section id="home" class="hero-bg h-screen flex items-center justify-center text-center text-white">
-            <div class="max-w-5xl px-6 pt-20">
-                <h1 class="text-4xl md:text-6xl lg:text-7xl font-normal tracking-tight mb-6 relative">
-                    <span class="hero-title-word" data-key="home_headline_line1">Building Visions</span>
-                    <span class="hero-title-word" data-key="home_headline_line2">into Reality</span>
-                </h1>
-                <p class="text-base md:text-lg font-light text-gray-200 mb-10 max-w-3xl mx-auto mt-8 fade-in" data-key="home_subheadline">
-                    Architectural Glass, metal, Wood, Composite panels, Steel.
-                </p>
-                <a href="#contact" class="btn btn-primary mt-8 fade-in" data-key="home_cta">Contact us:</a>
+        <section id="home" class="h-screen flex flex-col text-center text-white">
+            <div id="hero-slideshow" class="hero-slideshow"></div>
+            <!-- Updated hero content structure for better layout control -->
+            <div class="hero-content container mx-auto px-6 h-full flex flex-col justify-between py-32">
+                 <!-- Spacer to push content down from the top -->
+                 <div></div>
+
+                <!-- Main Title -->
+                <div>
+                    <h1 class="text-4xl md:text-5xl lg:text-6xl font-light tracking-normal relative">
+                        <span class="hero-title-word" data-key="home_headline_line1">Building Visions</span>
+                        <span class="hero-title-word" data-key="home_headline_line2">into Reality</span>
+                    </h1>
+                </div>
+
+                <!-- Sub-content at the bottom -->
+                <div>
+                    <p class="text-base md:text-lg font-light text-gray-200 mb-8 max-w-3xl mx-auto fade-in" data-key="home_subheadline">
+                        Architectural Glass, metal, Wood, Composite panels, Steel.
+                    </p>
+                    <a href="#contact" class="btn btn-primary fade-in" data-key="home_cta">Contact us:</a>
+                </div>
             </div>
         </section>
 
@@ -478,371 +511,297 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // --- INITIAL SETUP ---
-            const pageLoader = document.getElementById('page-loader');
-            if (pageLoader) {
-                // Fade out the loader
-                pageLoader.style.opacity = '0';
-                setTimeout(() => {
-                    pageLoader.style.display = 'none';
-                }, 500); // Match transition duration
-            }
-
-            // --- TRANSLATION DATA (English Only) ---
-            const translations = {
-                en: {
-                    nav_about: "About", nav_services: "Services", nav_projects: "Projects", nav_partners: "Partners", nav_contact: "Contact",
-                    nav_about_mobile: "About", nav_services_mobile: "Services", nav_projects_mobile: "Projects", nav_partners_mobile: "Partners", nav_contact_mobile: "Contact",
-                    home_headline_line1: "Building Visions",
-                    home_headline_line2: "into Reality",
-                    home_subheadline: "Architectural Glass, metal, Wood, Composite panels, Steel.",
-                    home_cta: "Contact us:",
-                    about_title: "Who We Are.",
-                    about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, and fabrication of architectural systems across commercial, residential, and institutional environments. We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
-                    about_philosophy: "“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”",
-                    services_subtitle: "What We Offer", services_title: "A System for Success", services_p: "Every project is a system. We help you align performance, design, and execution through the following service categories:",
-                    service1_title: "Façade & Building Envelope", service1_li1: "Curtain walls, structural glass", service1_li2: "Architectural metals & panels",
-                    service2_title: "Interior Architectural Systems", service2_li1: "Glass partitions, sliding panels", service2_li2: "Custom railings, movable walls",
-                    service4_title: "Preconstruction & Support", service4_li2: "Shop drawings, submittals, RFIs",
-                    projects_subtitle: "Selected Work", projects_title: "Commitment to Technical Clarity",
-                    projects_cta1: "View Project Gallery", projects_cta2: "Request Case Study PDF",
-                    partners_subtitle: "Trusted By The Best", partners_title: "Our Partners",
-                    testimonials_subtitle: "Testimonials",
-                    testimonial1_text: "\"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch.\"", testimonial1_author: "— Senior Architect, Manhattan Studio",
-                    testimonial2_text: "\"Smart, responsive, precise. Their coordination saved us weeks on site.\"", testimonial2_author: "— Project Manager, NYC Developer",
-                    contact_subtitle: "Contact Us", contact_title: "Let's Build Something Exceptional",
-                    form_name: "Name", form_company: "Company", form_email: "Email", form_message: "Message", form_submit: "Send Message",
-                    contact_email_title: "Email", contact_phone_title: "Phone", contact_location_title: "Location",
-                    footer_tagline: "Precision. Partnership. Performance.", footer_links_title: "Quick Links",
-                    footer_link_about: "About Us", footer_link_services: "Services", footer_link_projects: "Projects", footer_link_partners: "Partners", footer_link_contact: "Contact",
-                    footer_legal_title: "Legal & Certifications", footer_cert1: "OSHA 30 Certified", footer_cert2: "NYC WBE (pending)",
-                    footer_legal_privacy: "Privacy Policy", footer_legal_terms: "Terms of Use",
-                    footer_copyright: "© 2024 GIRALDO AEC Solutions. All Rights Reserved."
-                }
-            };
-
-            function applyTranslations() {
-                document.querySelectorAll('[data-key]').forEach(element => {
-                    const key = element.getAttribute('data-key');
-                    if (translations.en[key]) {
-                        if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-                            element.placeholder = translations.en[key];
-                        } else {
-                            element.innerHTML = translations.en[key]; // Use innerHTML to render copyright symbol
-                        }
-                    }
-                });
-            }
-
-            // --- MOBILE MENU TOGGLE ---
-            const mobileMenuButton = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-            mobileMenu.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
-            });
-            mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
-
-            // --- SCROLL ANIMATIONS ---
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                    } else {
-                        // Optional: remove class when it scrolls out of view
-                        // entry.target.classList.remove('is-visible');
-                    }
-                });
-            }, { threshold: 0.1 });
-
-             function observeElements() {
-                document.querySelectorAll('.fade-in, .animated-word, .project-card, .hero-title-word, .service-card').forEach(el => {
-                    observer.observe(el);
-                });
-            }
-
-
-            // --- HEADER SCROLL EFFECT ---
-            const header = document.getElementById('header');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    header.classList.add('shadow-lg');
-                } else {
-                    header.classList.remove('shadow-lg');
-                }
-            });
-
-            // --- SMOOTH SCROLLING ---
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({ behavior: 'smooth' });
-                    }
-                });
-            });
-
-             // --- PROJECTS DATA & MODAL LOGIC ---
-            const projectsData = [
-                {
-                    id: 'waterline-square',
-                    title: 'Waterline Square',
-                    description: 'Custom architectural systems for a modern residential complex.',
-                    folder: '01%20WATERLINE%20SQUARE',
-                    images: ['10ClosingRoom.jpg', '11Entrance.jpg', '1Lobby_20191015015552.jpg', '4BuildingModelGallery_20191015015552.jpg', '5AmenitiesRoom_20191015015553.jpg', '6ModelUnitEntry.jpg', '8ModelUnit2.jpg', '9ModelUnit3.jpg', 'DSCF4124-scaled-2048x1366.jpg', 'image.jpg', 'photo%201.jpg', 'water%20feature.jpg', 'waterline-square-park-3.jpg', 'waterline-square-park-6.jpg', 'waterline-square-park-8.jpg', 'waterline-square4.png']
-                },
-                {
-                    id: 'zuma-nyc',
-                    title: 'ZUMA NYC',
-                    description: 'High-end interior metal and glass work for a luxury restaurant.',
-                    folder: '02%20ZUMA',
-                    images: ['Hospitality+Architechture+ZUMA+NYC-13%20(1).jpg', 'Hospitality+Architechture+ZUMA+NYC-13.jpg', 'Hospitality+Architechture+ZUMA+NYC-2.jpg', 'Hospitality+Architechture+ZUMA+NYC-3.jpg', 'Hospitality+Architechture+ZUMA+NYC.jpg', 'Zuma%20Stairs.jpg', 'Zuma_0192%20textures.jpg', 'zumanyc_reception.jpg']
-                },
-                {
-                    id: 'jacob-co',
-                    title: 'Jacob & Co.',
-                    description: 'Bespoke facade and storefront for a luxury jewelry brand.',
-                    folder: '03%20JACOB',
-                    images: ['IMG-0815.JPG', 'IMG-0864.JPG', 'IMG-0948.JPG', 'IMG-0953.JPG', 'IMG-0961.JPG', 'IMG-0966.JPG', 'IMG-1455.jpg', 'IMG-1456.jpg', 'Jacob%203.JPG', 'Jacob-store-3.jpg', 'Jacob.JPG', 'jacob%201.JPG', 'jacobandcocom_533992922.jpg']
-                },
-                {
-                    id: 'the-bryant',
-                    title: 'The Bryant NYC',
-                    description: 'Architectural concrete panels and window system integration.',
-                    folder: '04%20The%20Bryant%20NYC',
-                    images: ['1076_10_sm_n5.jpg', '2018-09-24_CQ_ParkTerrace_Lobby_mark-weinberg_0458-small-1300x867.jpg', '9df9e135_z.jpg', 'The%20Bryant%20David%20Chipperfield%20Penthouse%203.jpg', 'The-Bryant-New-York_David-Chipperfield_dezeen_936_5.jpg', 'The-Bryant-by-David-Chipperfield-08-876x783.jpg', 'c262614e954bec274ecab73cd6945f3f.jpg', 'lobby_002.jpg', 'lobby_003.jpg', 'park-terrace-hotel-on-bryant-park-new-york-nyc-013-73471-1024x768.jpg', 'park-terrace-hotel-on.jpg']
-                },
-                {
-                    id: '112-w-25th',
-                    title: '112 West 25th Street',
-                    description: 'Lobby and facade renovation for a commercial office building.',
-                    folder: '05%20112%20West%2025th%20Street',
-                    images: ['2020-03-04%20(1).jpg', '2020-03-04.jpg', '2021-04-15.jpg', 'IMG-1450.jpg', 'IMG-1451.jpg', 'IMG-1820.jpg', 'IMG-6351.jpg']
-                },
-                {
-                    id: '200-e-59th',
-                    title: '200 E 59th Street',
-                    description: 'Exterior envelope and glazing systems for a residential tower.',
-                    folder: '06%20200%20E%2069TH',
-                    images: ['1.jpg', 'IMG-8942.jpg', 'IMG-8943.jpg', 'exterior-wide-1800x1200.jpg', 'exterior2-1200x800.jpg', 'pano_9-1200x800.jpg']
-                },
-                {
-                    id: '210-bowery',
-                    title: '210 Bowery',
-                    description: 'Custom storefront and metal panel system for a new development.',
-                    folder: '07%20210%20BOWERY',
-                    images: ['210%20Bowery%20facade.jpg', 'IMG_8930.JPG', 'IMG_8933.JPG', 'IMG_8935.JPG', 'bowery-condos-lower-east-side-development-manhattan-apartments-arcadia-realty-trust.jpg']
-                },
-                {
-                    id: '533-w-57th',
-                    title: '533 W 57th Street',
-                    description: 'Complex curtain wall and building envelope coordination.',
-                    folder: '08%20533%20W%2057TH',
-                    images: ['IMG-6388.jpg', 'IMG-6389.jpg', 'IMG-6390.jpg', 'IMG-6421.jpg', 'IMG-6422.jpg', 'IMG-6782.jpg', 'IMG-6785.jpg']
-                },
-                {
-                    id: 'hotel-chelsea',
-                    title: 'Hotel Chelsea',
-                    description: 'Historic restoration of windows and architectural metalwork.',
-                    folder: '09%20HOTEL%20CHELSEA',
-                    images: ['11.jpg', '21795852-7751599.jpg', '6IYV233C2NHZZDZR4F3RIUDBUM.jpg', 'IMG-0188.JPG', 'IMG-1046.JPG', 'IMG-1066.JPG', 'IMG-1069.JPG', 'IMG-1160.JPG', 'IMG-1646.jpg', 'IMG-1649.jpg', 'IMG-1650.jpg', 'IMG-2090.jpg', 'IMG-2091.jpg', 'IMG-7699.jpg', 'IMG-7700.jpg', 'IMG-7701.jpg', 'IMG-7707.jpg', 'IMG-9325.JPG', 'IMG_1167.jpeg', 'IMG_1168.jpeg', 'PHOTO-2019-04-11-17-38-37.jpg', 'PHOTO-2019-04-11-17-38-56.jpg']
-                },
-                {
-                    id: 'bowery-hotel',
-                    title: 'Bowery Hotel',
-                    description: 'Custom interior systems and decorative metal fabrication.',
-                    folder: '10%20BOWERY%20HOTEL',
-                    images: ['Bowery%20Hotel%201.jpg', 'Bowery%20Hotel.jpg', 'IMG-1452.jpg', 'IMG-4724.jpg', 'IMG-4728.jpg']
-                },
-                {
-                    id: '1133-broadway',
-                    title: '1133 Broadway',
-                    description: 'Facade restoration and lobby modernization.',
-                    folder: '11%201133%20BROADWAY',
-                    images: ['IMG-2975.jpg', 'IMG-2976.jpg', 'RizzoliBookstore_AK01-%C2%A9-Adam-Kuehl-copy-600x404.jpg', 'e6e93e64d5063277193ded5cbdb6246b.jpg']
-                },
-                {
-                    id: 'wos-soho',
-                    title: 'Watches of Switzerland SoHo',
-                    description: 'Luxury retail storefront and interior architectural elements.',
-                    folder: '12%20WOS%20SOHO',
-                    images: ['1.jpg', '2.jpg', '3.jpg', 'IMG-1126.PNG', 'WOS10.jpg', 'Watches-Of-Switzerland_11SIZED.jpg', 'Watches-Of-Switzerland_17_BSIZED.jpg', 'Watches-Of-Switzerland_7SIZED.jpg', 'Watches-of-Switzerland-Main-FloorSIZED.jpg', 'Watches-of-Switzerland-Soho-Rolex-corner.jpg', 'Watches-of-Switzerland-Soho-bar-Death-and-Company.jpg', 'Watches-of-Switzerland-Soho-featured-cover.jpg', 'Watches-of-Switzerland-Soho-stair-view.jpg', 'watches-of-switzerland-soho-new-york-800x272.jpg', 'watches-of-switzerland-soho-new-york-800x508.jpg']
-                },
-                {
-                    id: '108-leonard',
-                    title: '108 Leonard',
-                    description: 'Landmark building conversion with custom window systems.',
-                    folder: '13%20LEONARD',
-                    images: ['108leonard_amenity_entertainment_lounge-2000x1368.jpg', '108leonard_bathroom_powder_room-2000x2737.jpg']
-                }
+            
+            const heroImages = [
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/01.png',
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/02.png',
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/03.png',
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/04.png',
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/05.png',
+                'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/PORTADA/06.png'
             ];
 
-            const projectsGrid = document.getElementById('projects-grid');
-            const modal = document.getElementById('project-modal');
-            const modalSliderContainer = document.getElementById('modal-slider-container');
-            const modalCloseBtn = document.getElementById('modal-close-btn');
-            const modalNextBtn = document.getElementById('modal-next-btn');
-            const modalPrevBtn = document.getElementById('modal-prev-btn');
-            const baseImageUrl = 'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/';
-            let currentProjectImages = [];
-            let currentImageIndex = 0;
-
-
-            // Populate project cards
-            projectsData.forEach(project => {
-                const card = document.createElement('a');
-                card.href = '#';
-                card.className = 'group block project-card slide-in-left';
-                card.dataset.projectId = project.id;
-                
-                let coverImage;
-                if (project.id === '200-e-59th') {
-                    coverImage = `${baseImageUrl}06%20200%20E%2069TH/exterior2-1200x800.jpg`;
-                } else if (project.id === 'hotel-chelsea') {
-                    coverImage = `${baseImageUrl}09%20HOTEL%20CHELSEA/IMG-2090.jpg`;
-                } else if (project.id === 'wos-soho') {
-                    coverImage = `${baseImageUrl}12%20WOS%20SOHO/Watches-of-Switzerland-Main-FloorSIZED.jpg`;
-                }
-                else {
-                    coverImage = project.images.length > 0 ? `${baseImageUrl}${project.folder}/${project.images[0]}` : `https://placehold.co/800x600/64748b/e2e8f0?text=${project.title.replace(/\s/g, '+')}`;
-                }
-
-
-                card.innerHTML = `
-                    <div class="project-card-image-container">
-                        <img src="${coverImage}" alt="${project.title} Project" class="w-full h-full object-cover">
-                        <div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8">
-                            <div>
-                                <h4 class="text-2xl font-bold text-white">${project.title}</h4>
-                                <p class="text-gray-200">${project.description}</p>
-                            </div>
-                        </div>
-                    </div>
-                `;
-                projectsGrid.appendChild(card);
-            });
-            observeElements();
-
-
-            // Open modal
-            projectsGrid.addEventListener('click', function(e) {
-                e.preventDefault();
-                const card = e.target.closest('.project-card');
-                if (card) {
-                    const projectId = card.dataset.projectId;
-                    const project = projectsData.find(p => p.id === projectId);
-                    if (project) {
-                        openModal(project);
-                    }
-                }
-            });
-
-            function openModal(project) {
-                currentProjectImages = project.images.map(img => `${baseImageUrl}${project.folder}/${img}`);
-                currentImageIndex = 0;
-                
-                populateSlider();
-                updateModal();
-
-                document.body.classList.add('modal-open');
-                modal.classList.remove('hidden');
-                setTimeout(() => {
-                    modal.classList.remove('opacity-0');
-                }, 10);
-            }
-
-            function populateSlider() {
-                modalSliderContainer.innerHTML = '';
-                currentProjectImages.forEach(imageUrl => {
-                    const slide = document.createElement('div');
-                    slide.className = 'modal-slide w-full h-full p-8 flex items-center justify-center';
-                    slide.innerHTML = `<img src="${imageUrl}" alt="Project Image" class="max-w-full max-h-full object-contain rounded-lg">`;
-                    modalSliderContainer.appendChild(slide);
+            // Function to preload images and execute a callback when done.
+            // This ensures the hero slideshow doesn't start before its images are ready.
+            function preloadImages(urls, allImagesLoadedCallback) {
+                let loadedCounter = 0;
+                let toBeLoaded = urls.length;
+                urls.forEach(function(url) {
+                    const img = new Image();
+                    img.src = url;
+                    img.onload = function() {
+                        loadedCounter++;
+                        if (loadedCounter === toBeLoaded) {
+                            allImagesLoadedCallback();
+                        }
+                    };
+                    img.onerror = function() {
+                        console.error('Failed to load image:', url);
+                        loadedCounter++;
+                        if (loadedCounter === toBeLoaded) {
+                            allImagesLoadedCallback(); // Still initialize site even if one image fails
+                        }
+                    };
                 });
             }
 
-            function updateModal() {
-                 if (currentProjectImages.length > 0) {
-                    const slideWidth = modalSliderContainer.clientWidth;
-                    modalSliderContainer.scrollLeft = currentImageIndex * slideWidth;
+            // This function contains all the logic to set up the page.
+            // It will only be called after the hero images are preloaded.
+            function initializeSite() {
+                // --- HIDE PRELOADER ---
+                const pageLoader = document.getElementById('page-loader');
+                if (pageLoader) {
+                    pageLoader.style.opacity = '0';
+                    setTimeout(() => {
+                        pageLoader.style.display = 'none';
+                    }, 500);
                 }
-                modalPrevBtn.style.display = currentProjectImages.length > 1 ? 'block' : 'none';
-                modalNextBtn.style.display = currentProjectImages.length > 1 ? 'block' : 'none';
-            }
-            
-            // Close modal
-            function closeModal() {
-                modal.classList.add('opacity-0');
-                setTimeout(() => {
-                    modal.classList.add('hidden');
-                    document.body.classList.remove('modal-open');
-                }, 300);
-            }
 
-            modalCloseBtn.addEventListener('click', closeModal);
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    closeModal();
+                // --- TRANSLATION DATA (English Only) ---
+                const translations = {
+                    en: {
+                        nav_about: "About", nav_services: "Services", nav_projects: "Projects", nav_partners: "Partners", nav_contact: "Contact",
+                        nav_about_mobile: "About", nav_services_mobile: "Services", nav_projects_mobile: "Projects", nav_partners_mobile: "Partners", nav_contact_mobile: "Contact",
+                        home_headline_line1: "Building Visions",
+                        home_headline_line2: "into Reality",
+                        home_subheadline: "Architectural Glass, metal, Wood, Composite panels, Steel.",
+                        home_cta: "Contact us:",
+                        about_title: "Who We Are.",
+                        about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, and fabrication of architectural systems across commercial, residential, and institutional environments. We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
+                        about_philosophy: "“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”",
+                        services_subtitle: "What We Offer", services_title: "A System for Success", services_p: "Every project is a system. We help you align performance, design, and execution through the following service categories:",
+                        service1_title: "Façade & Building Envelope", service1_li1: "Curtain walls, structural glass", service1_li2: "Architectural metals & panels",
+                        service2_title: "Interior Architectural Systems", service2_li1: "Glass partitions, sliding panels", service2_li2: "Custom railings, movable walls",
+                        service4_title: "Preconstruction & Support", service4_li2: "Shop drawings, submittals, RFIs",
+                        projects_subtitle: "Selected Work", projects_title: "Commitment to Technical Clarity",
+                        projects_cta1: "View Project Gallery", projects_cta2: "Request Case Study PDF",
+                        partners_subtitle: "Trusted By The Best", partners_title: "Our Partners",
+                        testimonials_subtitle: "Testimonials",
+                        testimonial1_text: "\"Giraldo AEC brought discipline and elegance to a complex build. Their team resolved details no one else would touch.\"", testimonial1_author: "— Senior Architect, Manhattan Studio",
+                        testimonial2_text: "\"Smart, responsive, precise. Their coordination saved us weeks on site.\"", testimonial2_author: "— Project Manager, NYC Developer",
+                        contact_subtitle: "Contact Us", contact_title: "Let's Build Something Exceptional",
+                        form_name: "Name", form_company: "Company", form_email: "Email", form_message: "Message", form_submit: "Send Message",
+                        contact_email_title: "Email", contact_phone_title: "Phone", contact_location_title: "Location",
+                        footer_tagline: "Precision. Partnership. Performance.", footer_links_title: "Quick Links",
+                        footer_link_about: "About Us", footer_link_services: "Services", footer_link_projects: "Projects", footer_link_partners: "Partners", footer_link_contact: "Contact",
+                        footer_legal_title: "Legal & Certifications", footer_cert1: "OSHA 30 Certified", footer_cert2: "NYC WBE (pending)",
+                        footer_legal_privacy: "Privacy Policy", footer_legal_terms: "Terms of Use",
+                        footer_copyright: "© 2024 GIRALDO AEC Solutions. All Rights Reserved."
+                    }
+                };
+
+                function applyTranslations() {
+                    document.querySelectorAll('[data-key]').forEach(element => {
+                        const key = element.getAttribute('data-key');
+                        if (translations.en[key]) {
+                            if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                                element.placeholder = translations.en[key];
+                            } else {
+                                element.innerHTML = translations.en[key]; // Use innerHTML to render copyright symbol
+                            }
+                        }
+                    });
                 }
-            });
 
-            // Navigation
-            modalNextBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length;
-                updateModal();
-            });
+                // --- MOBILE MENU TOGGLE ---
+                const mobileMenuButton = document.getElementById('mobile-menu-button');
+                const mobileMenu = document.getElementById('mobile-menu');
+                mobileMenu.querySelectorAll('a').forEach(link => {
+                    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+                });
+                mobileMenuButton.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
 
-            modalPrevBtn.addEventListener('click', () => {
-                currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length;
-                updateModal();
-            });
-            
-             window.addEventListener('resize', updateModal);
+                // --- SCROLL ANIMATIONS ---
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                        }
+                    });
+                }, { threshold: 0.1 });
 
+                function observeElements() {
+                    document.querySelectorAll('.fade-in, .animated-word, .project-card, .hero-title-word, .service-card').forEach(el => {
+                        observer.observe(el);
+                    });
+                }
 
-            // --- CONTACT FORM HANDLING ---
-            const contactForm = document.getElementById('contact-form');
-            const formMessage = document.getElementById('form-message');
-            contactForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const message = document.getElementById('message').value;
+                // --- HEADER SCROLL EFFECT ---
+                const header = document.getElementById('header');
+                window.addEventListener('scroll', () => {
+                    if (window.scrollY > 50) {
+                        header.classList.add('shadow-lg');
+                    } else {
+                        header.classList.remove('shadow-lg');
+                    }
+                });
 
-                if (!name || !email || !message) {
-                    showMessage('Please fill out all required fields.', 'error');
-                    return;
+                // --- SMOOTH SCROLLING ---
+                document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                    anchor.addEventListener('click', function (e) {
+                        e.preventDefault();
+                        const targetId = this.getAttribute('href');
+                        const targetElement = document.querySelector(targetId);
+                        if (targetElement) {
+                            targetElement.scrollIntoView({ behavior: 'smooth' });
+                        }
+                    });
+                });
+
+                // --- HERO SLIDESHOW ---
+                const heroSlideshow = document.getElementById('hero-slideshow');
+                let currentHeroImageIndex = 0;
+
+                heroImages.forEach((src, index) => {
+                    const slide = document.createElement('div');
+                    slide.className = 'hero-slide';
+                    slide.style.backgroundImage = `url(${src})`;
+                    if (index === 0) {
+                        slide.classList.add('active');
+                    }
+                    heroSlideshow.appendChild(slide);
+                });
+
+                const slides = heroSlideshow.querySelectorAll('.hero-slide');
+                setInterval(() => {
+                    slides[currentHeroImageIndex].classList.remove('active');
+                    currentHeroImageIndex = (currentHeroImageIndex + 1) % slides.length;
+                    slides[currentHeroImageIndex].classList.add('active');
+                }, 5000);
+
+                // --- PROJECTS DATA & MODAL LOGIC ---
+                const projectsData = [
+                    { id: 'waterline-square', title: 'Waterline Square', description: 'Custom architectural systems for a modern residential complex.', folder: '01%20WATERLINE%20SQUARE', images: ['10ClosingRoom.jpg', '11Entrance.jpg', '1Lobby_20191015015552.jpg', '4BuildingModelGallery_20191015015552.jpg', '5AmenitiesRoom_20191015015553.jpg', '6ModelUnitEntry.jpg', '8ModelUnit2.jpg', '9ModelUnit3.jpg', 'DSCF4124-scaled-2048x1366.jpg', 'image.jpg', 'photo%201.jpg', 'water%20feature.jpg', 'waterline-square-park-3.jpg', 'waterline-square-park-6.jpg', 'waterline-square-park-8.jpg', 'waterline-square4.png'] },
+                    { id: 'zuma-nyc', title: 'ZUMA NYC', description: 'High-end interior metal and glass work for a luxury restaurant.', folder: '02%20ZUMA', images: ['Hospitality+Architechture+ZUMA+NYC-13%20(1).jpg', 'Hospitality+Architechture+ZUMA+NYC-13.jpg', 'Hospitality+Architechture+ZUMA+NYC-2.jpg', 'Hospitality+Architechture+ZUMA+NYC-3.jpg', 'Hospitality+Architechture+ZUMA+NYC.jpg', 'Zuma%20Stairs.jpg', 'Zuma_0192%20textures.jpg', 'zumanyc_reception.jpg'] },
+                    { id: 'jacob-co', title: 'Jacob & Co.', description: 'Bespoke facade and storefront for a luxury jewelry brand.', folder: '03%20JACOB', images: ['IMG-0815.JPG', 'IMG-0864.JPG', 'IMG-0948.JPG', 'IMG-0953.JPG', 'IMG-0961.JPG', 'IMG-0966.JPG', 'IMG-1455.jpg', 'IMG-1456.jpg', 'Jacob%203.JPG', 'Jacob-store-3.jpg', 'Jacob.JPG', 'jacob%201.JPG', 'jacobandcocom_533992922.jpg'] },
+                    { id: 'the-bryant', title: 'The Bryant NYC', description: 'Architectural concrete panels and window system integration.', folder: '04%20The%20Bryant%20NYC', images: ['1076_10_sm_n5.jpg', '2018-09-24_CQ_ParkTerrace_Lobby_mark-weinberg_0458-small-1300x867.jpg', '9df9e135_z.jpg', 'The%20Bryant%20David%20Chipperfield%20Penthouse%203.jpg', 'The-Bryant-New-York_David-Chipperfield_dezeen_936_5.jpg', 'The-Bryant-by-David-Chipperfield-08-876x783.jpg', 'c262614e954bec274ecab73cd6945f3f.jpg', 'lobby_002.jpg', 'lobby_003.jpg', 'park-terrace-hotel-on-bryant-park-new-york-nyc-013-73471-1024x768.jpg', 'park-terrace-hotel-on.jpg'] },
+                    { id: '112-w-25th', title: '112 West 25th Street', description: 'Lobby and facade renovation for a commercial office building.', folder: '05%20112%20West%2025th%20Street', images: ['2020-03-04%20(1).jpg', '2020-03-04.jpg', '2021-04-15.jpg', 'IMG-1450.jpg', 'IMG-1451.jpg', 'IMG-1820.jpg', 'IMG-6351.jpg'] },
+                    { id: '200-e-59th', title: '200 E 59th Street', description: 'Exterior envelope and glazing systems for a residential tower.', folder: '06%20200%20E%2069TH', images: ['1.jpg', 'IMG-8942.jpg', 'IMG-8943.jpg', 'exterior-wide-1800x1200.jpg', 'exterior2-1200x800.jpg', 'pano_9-1200x800.jpg'] },
+                    { id: '210-bowery', title: '210 Bowery', description: 'Custom storefront and metal panel system for a new development.', folder: '07%20210%20BOWERY', images: ['210%20Bowery%20facade.jpg', 'IMG_8930.JPG', 'IMG_8933.JPG', 'IMG_8935.JPG', 'bowery-condos-lower-east-side-development-manhattan-apartments-arcadia-realty-trust.jpg'] },
+                    { id: '533-w-57th', title: '533 W 57th Street', description: 'Complex curtain wall and building envelope coordination.', folder: '08%20533%20W%2057TH', images: ['IMG-6388.jpg', 'IMG-6389.jpg', 'IMG-6390.jpg', 'IMG-6421.jpg', 'IMG-6422.jpg', 'IMG-6782.jpg', 'IMG-6785.jpg'] },
+                    { id: 'hotel-chelsea', title: 'Hotel Chelsea', description: 'Historic restoration of windows and architectural metalwork.', folder: '09%20HOTEL%20CHELSEA', images: ['11.jpg', '21795852-7751599.jpg', '6IYV233C2NHZZDZR4F3RIUDBUM.jpg', 'IMG-0188.JPG', 'IMG-1046.JPG', 'IMG-1066.JPG', 'IMG-1069.JPG', 'IMG-1160.JPG', 'IMG-1646.jpg', 'IMG-1649.jpg', 'IMG-1650.jpg', 'IMG-2090.jpg', 'IMG-2091.jpg', 'IMG-7699.jpg', 'IMG-7700.jpg', 'IMG-7701.jpg', 'IMG-7707.jpg', 'IMG-9325.JPG', 'IMG_1167.jpeg', 'IMG_1168.jpeg', 'PHOTO-2019-04-11-17-38-37.jpg', 'PHOTO-2019-04-11-17-38-56.jpg'] },
+                    { id: 'bowery-hotel', title: 'Bowery Hotel', description: 'Custom interior systems and decorative metal fabrication.', folder: '10%20BOWERY%20HOTEL', images: ['Bowery%20Hotel%201.jpg', 'Bowery%20Hotel.jpg', 'IMG-1452.jpg', 'IMG-4724.jpg', 'IMG-4728.jpg'] },
+                    { id: '1133-broadway', title: '1133 Broadway', description: 'Facade restoration and lobby modernization.', folder: '11%201133%20BROADWAY', images: ['IMG-2975.jpg', 'IMG-2976.jpg', 'RizzoliBookstore_AK01-%C2%A9-Adam-Kuehl-copy-600x404.jpg', 'e6e93e64d5063277193ded5cbdb6246b.jpg'] },
+                    { id: 'wos-soho', title: 'Watches of Switzerland SoHo', description: 'Luxury retail storefront and interior architectural elements.', folder: '12%20WOS%20SOHO', images: ['1.jpg', '2.jpg', '3.jpg', 'IMG-1126.PNG', 'WOS10.jpg', 'Watches-Of-Switzerland_11SIZED.jpg', 'Watches-Of-Switzerland_17_BSIZED.jpg', 'Watches-Of-Switzerland_7SIZED.jpg', 'Watches-of-Switzerland-Main-FloorSIZED.jpg', 'Watches-of-Switzerland-Soho-Rolex-corner.jpg', 'Watches-of-Switzerland-Soho-bar-Death-and-Company.jpg', 'Watches-of-Switzerland-Soho-featured-cover.jpg', 'Watches-of-Switzerland-Soho-stair-view.jpg', 'watches-of-switzerland-soho-new-york-800x272.jpg', 'watches-of-switzerland-soho-new-york-800x508.jpg'] },
+                    { id: '108-leonard', title: '108 Leonard', description: 'Landmark building conversion with custom window systems.', folder: '13%20LEONARD', images: ['108leonard_amenity_entertainment_lounge-2000x1368.jpg', '108leonard_bathroom_powder_room-2000x2737.jpg'] }
+                ];
+
+                const projectsGrid = document.getElementById('projects-grid');
+                const modal = document.getElementById('project-modal');
+                const modalSliderContainer = document.getElementById('modal-slider-container');
+                const modalCloseBtn = document.getElementById('modal-close-btn');
+                const modalNextBtn = document.getElementById('modal-next-btn');
+                const modalPrevBtn = document.getElementById('modal-prev-btn');
+                const baseImageUrl = 'https://raw.githubusercontent.com/NucleoColectivo/AEC/main/IMG/';
+                let currentProjectImages = [];
+                let currentImageIndex = 0;
+
+                projectsData.forEach(project => {
+                    const card = document.createElement('a');
+                    card.href = '#';
+                    card.className = 'group block project-card slide-in-left';
+                    card.dataset.projectId = project.id;
+                    let coverImage;
+                    if (project.id === '200-e-59th') { coverImage = `${baseImageUrl}06%20200%20E%2069TH/exterior2-1200x800.jpg`; }
+                    else if (project.id === 'hotel-chelsea') { coverImage = `${baseImageUrl}09%20HOTEL%20CHELSEA/IMG-2090.jpg`; }
+                    else if (project.id === 'wos-soho') { coverImage = `${baseImageUrl}12%20WOS%20SOHO/Watches-of-Switzerland-Main-FloorSIZED.jpg`; }
+                    else { coverImage = project.images.length > 0 ? `${baseImageUrl}${project.folder}/${project.images[0]}` : `https://placehold.co/800x600/64748b/e2e8f0?text=${project.title.replace(/\s/g, '+')}`; }
+                    card.innerHTML = `<div class="project-card-image-container"><img src="${coverImage}" alt="${project.title} Project" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8"><div><h4 class="text-2xl font-bold text-white">${project.title}</h4><p class="text-gray-200">${project.description}</p></div></div></div>`;
+                    projectsGrid.appendChild(card);
+                });
+                
+                observeElements();
+
+                projectsGrid.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const card = e.target.closest('.project-card');
+                    if (card) {
+                        const projectId = card.dataset.projectId;
+                        const project = projectsData.find(p => p.id === projectId);
+                        if (project) { openModal(project); }
+                    }
+                });
+
+                function openModal(project) {
+                    currentProjectImages = project.images.map(img => `${baseImageUrl}${project.folder}/${img}`);
+                    currentImageIndex = 0;
+                    populateSlider();
+                    updateModal();
+                    document.body.classList.add('modal-open');
+                    modal.classList.remove('hidden');
+                    setTimeout(() => { modal.classList.remove('opacity-0'); }, 10);
+                }
+
+                function populateSlider() {
+                    modalSliderContainer.innerHTML = '';
+                    currentProjectImages.forEach(imageUrl => {
+                        const slide = document.createElement('div');
+                        slide.className = 'modal-slide w-full h-full p-8 flex items-center justify-center';
+                        slide.innerHTML = `<img src="${imageUrl}" alt="Project Image" class="max-w-full max-h-full object-contain rounded-lg">`;
+                        modalSliderContainer.appendChild(slide);
+                    });
+                }
+
+                function updateModal() {
+                    if (currentProjectImages.length > 0) {
+                        const slideWidth = modalSliderContainer.clientWidth;
+                        modalSliderContainer.scrollLeft = currentImageIndex * slideWidth;
+                    }
+                    modalPrevBtn.style.display = currentProjectImages.length > 1 ? 'block' : 'none';
+                    modalNextBtn.style.display = currentProjectImages.length > 1 ? 'block' : 'none';
                 }
                 
-                // Simulate form submission
-                const submitButton = contactForm.querySelector('button[type="submit"]');
-                submitButton.disabled = true;
-                submitButton.textContent = 'Sending...';
+                function closeModal() {
+                    modal.classList.add('opacity-0');
+                    setTimeout(() => {
+                        modal.classList.add('hidden');
+                        document.body.classList.remove('modal-open');
+                    }, 300);
+                }
 
-                setTimeout(() => {
-                    showMessage('Thank you! Your message has been sent.', 'success');
-                    contactForm.reset();
-                    submitButton.disabled = false;
-                    submitButton.textContent = 'Send Message';
-                }, 1500);
-            });
+                modalCloseBtn.addEventListener('click', closeModal);
+                modal.addEventListener('click', function(e) { if (e.target === modal) { closeModal(); } });
+                modalNextBtn.addEventListener('click', () => { currentImageIndex = (currentImageIndex + 1) % currentProjectImages.length; updateModal(); });
+                modalPrevBtn.addEventListener('click', () => { currentImageIndex = (currentImageIndex - 1 + currentProjectImages.length) % currentProjectImages.length; updateModal(); });
+                window.addEventListener('resize', updateModal);
 
-            function showMessage(message, type) {
-                formMessage.textContent = message;
-                formMessage.className = `p-4 rounded-md text-sm flex items-center justify-center gap-2 ${type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
-                
-                const icon = type === 'success' ? 'check-circle' : 'alert-triangle';
-                formMessage.innerHTML = `<i data-feather="${icon}" class="w-5 h-5"></i> ${message}`;
-                feather.replace(); // Re-render icons
+                // --- CONTACT FORM HANDLING ---
+                const contactForm = document.getElementById('contact-form');
+                const formMessage = document.getElementById('form-message');
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    const name = document.getElementById('name').value;
+                    const email = document.getElementById('email').value;
+                    const message = document.getElementById('message').value;
+                    if (!name || !email || !message) { showMessage('Please fill out all required fields.', 'error'); return; }
+                    const submitButton = contactForm.querySelector('button[type="submit"]');
+                    submitButton.disabled = true;
+                    submitButton.textContent = 'Sending...';
+                    setTimeout(() => {
+                        showMessage('Thank you! Your message has been sent.', 'success');
+                        contactForm.reset();
+                        submitButton.disabled = false;
+                        submitButton.textContent = 'Send Message';
+                    }, 1500);
+                });
 
-                formMessage.classList.remove('hidden');
-                setTimeout(() => formMessage.classList.add('hidden'), 5000);
+                function showMessage(message, type) {
+                    formMessage.textContent = message;
+                    formMessage.className = `p-4 rounded-md text-sm flex items-center justify-center gap-2 ${type === 'success' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`;
+                    const icon = type === 'success' ? 'check-circle' : 'alert-triangle';
+                    formMessage.innerHTML = `<i data-feather="${icon}" class="w-5 h-5"></i> ${message}`;
+                    feather.replace();
+                    formMessage.classList.remove('hidden');
+                    setTimeout(() => formMessage.classList.add('hidden'), 5000);
+                }
+
+                // --- FINAL INITIALIZATION ---
+                applyTranslations();
+                feather.replace();
             }
 
-            // --- FINAL INITIALIZATION ---
-            applyTranslations();
-            feather.replace(); // Initial icon render
+            // Start the preloading process, and once it's done, initialize the site.
+            preloadImages(heroImages, initializeSite);
         });
     </script>
 </body>
