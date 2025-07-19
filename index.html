@@ -211,6 +211,11 @@
         .project-card:nth-child(11) { transition-delay: 0.4s; }
         .project-card:nth-child(12) { transition-delay: 0.5s; }
         .project-card:nth-child(13) { transition-delay: 0s; }
+        
+        /* Staggered delays for feature cards */
+        #features .fade-in:nth-child(1) { transition-delay: 0s; }
+        #features .fade-in:nth-child(2) { transition-delay: 0.1s; }
+        #features .fade-in:nth-child(3) { transition-delay: 0.2s; }
 
         /* Responsive video container */
         .video-container {
@@ -318,7 +323,7 @@
         </section>
 
         <!-- About Section -->
-        <section id="about" class="py-20 md:py-28 bg-white">
+        <section id="about" class="py-20 md:py-28 bg-gray-50">
             <div class="container mx-auto px-6">
                 <div class="max-w-4xl mx-auto text-center">
                     <h2 class="text-5xl md:text-6xl font-black text-gray-800 mb-12 fade-in" data-key="about_title">Who We Are.</h2>
@@ -333,7 +338,7 @@
         </section>
 
         <!-- Video Section -->
-        <section id="video-section" class="py-16 md:py-24 bg-gray-100">
+        <section id="video-section" class="py-16 md:py-24 bg-white">
             <div class="container mx-auto px-6">
                 <div class="video-container rounded-lg shadow-xl">
                     <iframe src="https://www.youtube.com/embed/_t_C_gpLjE8?controls=1&autoplay=1&mute=1&loop=1&playlist=_t_C_gpLjE8&start=2641"
@@ -390,8 +395,42 @@
                     <h3 class="section-subtitle" data-key="projects_subtitle">Selected Work</h3>
                     <h2 class="section-title" data-key="projects_title">Commitment to Technical Clarity</h2>
                 </div>
-                <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-5 mt-20">
+                <div id="projects-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-5 mt-20">
                     <!-- Project cards will be injected here by JavaScript -->
+                </div>
+                <div id="view-more-container" class="text-center mt-12">
+                    <button id="view-more-btn" class="btn btn-secondary">View More Projects</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Features Section -->
+        <section id="features" class="py-20 md:py-28 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-4xl mx-auto">
+                    <h3 class="section-subtitle" data-key="features_subtitle">Our Approach</h3>
+                    <h2 class="section-title" data-key="features_title">A Foundation of Excellence</h2>
+                    <p class="mt-6 text-lg text-gray-600" data-key="features_p">We combine deep industry experience with a commitment to precision and tailored solutions, ensuring every project's success from concept to completion.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-10 mt-20 max-w-7xl mx-auto">
+                    <!-- Feature 1 -->
+                    <div class="fade-in p-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B08D57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-6 mx-auto"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="feature1_title">Technical Expertise</h3>
+                        <p class="text-gray-600" data-key="feature1_text">Deep knowledge in engineering and executing complex architectural systems.</p>
+                    </div>
+                    <!-- Feature 2 -->
+                    <div class="fade-in p-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B08D57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-6 mx-auto"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="feature2_title">Architectural Systems</h3>
+                        <p class="text-gray-600" data-key="feature2_text">Specializing in facades, interiors, and custom building envelopes.</p>
+                    </div>
+                    <!-- Feature 3 -->
+                    <div class="fade-in p-8">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#B08D57" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="mb-6 mx-auto"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
+                        <h3 class="text-xl font-bold text-gray-900 mb-3" data-key="feature3_title">Integrated Solutions</h3>
+                        <p class="text-gray-600" data-key="feature3_text">From pre-construction to fabrication, we provide end-to-end project support.</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -566,6 +605,15 @@
                         home_headline_line2: "into Reality",
                         home_subheadline: "Architectural Glass, metal, Wood, Composite panels, Steel.",
                         home_cta: "Contact us:",
+                        features_subtitle: "Our Approach",
+                        features_title: "A Foundation of Excellence",
+                        features_p: "We combine deep industry experience with a commitment to precision and tailored solutions, ensuring every project's success from concept to completion.",
+                        feature1_title: "Technical Expertise",
+                        feature1_text: "Deep knowledge in engineering and executing complex architectural systems.",
+                        feature2_title: "Architectural Systems",
+                        feature2_text: "Specializing in facades, interiors, and custom building envelopes.",
+                        feature3_title: "Integrated Solutions",
+                        feature3_text: "From pre-construction to fabrication, we provide end-to-end project support.",
                         about_title: "Who We Are.",
                         about_p1: "GIRALDO AEC Solutions is a New York-based company specializing in the coordination, and fabrication of architectural systems across commercial, residential, and institutional environments. We support design teams, developers, and builders with a strong foundation in technical execution, materials knowledge, and a detail-oriented mindset. We operate at the intersection of design intent and buildability.",
                         about_philosophy: "“We believe in clarity through construction. Each project deserves detail, discipline, and a tailored response.”",
@@ -687,6 +735,8 @@
                 ];
 
                 const projectsGrid = document.getElementById('projects-grid');
+                const viewMoreBtn = document.getElementById('view-more-btn');
+                const viewMoreContainer = document.getElementById('view-more-container');
                 const modal = document.getElementById('project-modal');
                 const modalSliderContainer = document.getElementById('modal-slider-container');
                 const modalCloseBtn = document.getElementById('modal-close-btn');
@@ -696,21 +746,46 @@
                 let currentProjectImages = [];
                 let currentImageIndex = 0;
 
-                projectsData.forEach(project => {
+                projectsData.forEach((project, index) => {
                     const card = document.createElement('a');
                     card.href = '#';
                     card.className = 'group block project-card slide-in-left';
+                    if (index >= 8) {
+                        card.classList.add('hidden'); // Hide projects after the 8th one
+                    }
                     card.dataset.projectId = project.id;
                     let coverImage;
-                    if (project.id === '200-e-59th') { coverImage = `${baseImageUrl}06%20200%20E%2069TH/exterior2-1200x800.jpg`; }
-                    else if (project.id === 'hotel-chelsea') { coverImage = `${baseImageUrl}09%20HOTEL%20CHELSEA/IMG-2090.jpg`; }
-                    else if (project.id === 'wos-soho') { coverImage = `${baseImageUrl}12%20WOS%20SOHO/Watches-of-Switzerland-Main-FloorSIZED.jpg`; }
-                    else { coverImage = project.images.length > 0 ? `${baseImageUrl}${project.folder}/${project.images[0]}` : `https://placehold.co/800x600/64748b/e2e8f0?text=${project.title.replace(/\s/g, '+')}`; }
+                    if (project.id === 'jacob-co') {
+                        coverImage = `${baseImageUrl}${project.folder}/jacob%201.JPG`;
+                    } else if (project.id === '200-e-59th') { 
+                        coverImage = `${baseImageUrl}06%20200%20E%2069TH/exterior2-1200x800.jpg`; 
+                    } else if (project.id === 'hotel-chelsea') { 
+                        coverImage = `${baseImageUrl}09%20HOTEL%20CHELSEA/IMG-2090.jpg`; 
+                    } else if (project.id === 'wos-soho') { 
+                        coverImage = `${baseImageUrl}12%20WOS%20SOHO/Watches-of-Switzerland-Main-FloorSIZED.jpg`; 
+                    } else { 
+                        coverImage = project.images.length > 0 ? `${baseImageUrl}${project.folder}/${project.images[0]}` : `https://placehold.co/800x600/64748b/e2e8f0?text=${project.title.replace(/\s/g, '+')}`; 
+                    }
                     card.innerHTML = `<div class="project-card-image-container"><img src="${coverImage}" alt="${project.title} Project" class="w-full h-full object-cover"><div class="absolute inset-0 bg-black bg-opacity-40 opacity-0 details flex items-end p-8"><div><h4 class="text-2xl font-bold text-white">${project.title}</h4><p class="text-gray-200">${project.description}</p></div></div></div>`;
                     projectsGrid.appendChild(card);
                 });
                 
                 observeElements();
+
+                // "View More" button logic
+                if (viewMoreBtn) {
+                    if (projectsData.length <= 8) {
+                        viewMoreContainer.style.display = 'none';
+                    } else {
+                        viewMoreBtn.addEventListener('click', function() {
+                            projectsGrid.querySelectorAll('.project-card.hidden').forEach(card => {
+                                card.classList.remove('hidden');
+                            });
+                            viewMoreContainer.style.display = 'none'; // Hide button after clicking
+                        });
+                    }
+                }
+
 
                 projectsGrid.addEventListener('click', function(e) {
                     e.preventDefault();
